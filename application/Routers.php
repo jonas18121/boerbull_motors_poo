@@ -1,5 +1,4 @@
 <?php
-// le routeur
 ///////// inclure les controlleurs ///////////
 require_once 'controller/HomeController.php';                           //HOME//
 require_once 'controller/car/CarController.php';                        //CAR//
@@ -12,16 +11,33 @@ require_once 'controller/admin/users/AdminUsersController.php';         //Admin 
 require_once 'controller/admin/car/AdminCarsController.php';            //Admin > Car //
 require_once 'controller/admin/booking/AdminBookingController.php';     //Admin > Booking //
 
-class Router{
+class Routers{
 
+    /** @var HomeController */
     private $HomeController;
+
+    /** @var PanierController */
     private $PanierController;
+
+    /** @var CarController */
     private $carController;
+
+    /** @var TarifController */
     private $tarifController;
+
+    /** @var UserController */
     private $userController;
+
+    /** @var AdminController */
     private $adminController;
+
+    /** @var AdminUsersController */
     private $adminUsersController;
+
+    /** @var AdminCarsController */
     private $adminCarsController;
+
+    /** @var AdminBookingController */
     private $adminBookingController;
 
     public function __construct()
@@ -46,25 +62,28 @@ class Router{
     }
 
 
-    public function run(){
+    /** 
+     * dirige vers le bon controlleur
+     */
+    public function run()
+    {
         try{// le bloc try catch sevira pour renvoyer les erreurs, s'il y en a 
             if($_GET){
                 if(isset($_GET['action']) && !empty($_GET['action'])){
                     if(array_key_exists('action', $_GET) && ctype_alpha($_GET['action'])){
                         //afficher l'acceuil
-                        if($_GET['action'] === 'home'){
-                            //si tous les controles sont réussi , on appel getHome() qui est dans HomeController.php
-                            $this->HomeController->getHome();
+                        if($_GET['action'] === 'home')
+                        {
+                            $this->HomeController->getHome();//HomeController.php
                         }
                         //afficher les categories de voiture
                         elseif($_GET['action'] === 'category'){
                             if(array_key_exists('id_category', $_GET)){
                                 if(isset($_GET['id_category']) && !empty($_GET['id_category'])){
-                                    if(ctype_digit($_GET['id_category'])&& $_GET['id_category'] > 0){
-                                        //si tous les controles sont réussi , on appel getOneCategory() qui est dans CategoryController.php
-                                        $this->carController->getOneCategory();
+                                    if(ctype_digit($_GET['id_category'])&& $_GET['id_category'] > 0)
+                                    {
+                                        $this->carController->getOneCategory();//CategoryController.php
                                     }else{
-                                        //ont lance une erreur, s'il a pas de id_category
                                         throw new Exception("Erreur : Tous les champs ne sont pas rempli !"); 
                                     }
                                 }else{
@@ -78,9 +97,9 @@ class Router{
                         elseif($_GET['action'] === 'oneCar'){
                             if(array_key_exists('id', $_GET)){
                                 if(isset($_GET['id']) && !empty($_GET['id'])){
-                                    if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){
-                                        //si tous les controles sont réussi , on appel getOneCar() qui est dans CarController.php
-                                        $this->carController->getOneCar();
+                                    if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                    {
+                                        $this->carController->getOneCar();//CarController.php
                                     }else{
                                         //ont lance une erreur, s'il a pas de id_category
                                         throw new Exception("Erreur : Tous les champs ne sont pas rempli !"); 
@@ -96,10 +115,9 @@ class Router{
                         elseif($_GET['action'] === 'panier'){
                             if(array_key_exists('id', $_GET)){
                                 if(isset($_GET['id']) && !empty($_GET['id'])){
-                                    if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){
-                                        //si tous les controles sont réussi , on appel panierAdd() qui est dans PanierController.php
-                                        $this->PanierController->panierAdd();
-
+                                    if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                    {
+                                        $this->PanierController->panierAdd();// PanierController.php
                                     }else{
                                         $this->HomeController->getHome();
                                     }
@@ -111,46 +129,46 @@ class Router{
                             }
                         }
                         //afficher ce qu'il y a dans le panier
-                        elseif($_GET['action'] === 'panierView'){
-                            //si tous les controles sont réussi , on appel PanierView() qui est dans PanierController.php
-                            $this->PanierController->panierOpen();
+                        elseif($_GET['action'] === 'panierView')
+                        {
+                            $this->PanierController->panierOpen();// PanierController.php
                         }
                         //connexion user // inscription user
                         elseif($_GET['action'] === 'user'){
                             if(array_key_exists('action2', $_GET)){
                                 if(isset($_GET['action2']) && !empty($_GET['action2'])){
                                     //afficher un formulaire de connexion user
-                                    if(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'loginForm'){
-                                        //si tous les controles sont réussi , on appel userLoginForm() qui est dans LoginController.php
-                                        $this->userController->userLoginForm();
+                                    if(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'loginForm')
+                                    {
+                                        $this->userController->userLoginForm(); // LoginController.php
                                     } 
                                     //connection user
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'login'){  
-                                        //si tous les controles sont réussi , on appel userLoginFormOk() qui est dans UserLoginFormController.php
-                                        $this->userController->userLogin();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'login')
+                                    {  
+                                        $this->userController->userLogin();//UserLoginFormController.php
                                     }
                                     //afficher un formulaire d'inscription user
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'registerForm'){
-                                        //si tous les controles sont réussi , on appel  userRegisterForm() qui est dans UserRegisterFormController.php                        
-                                        $this->userController->userRegisterForm();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'registerForm')
+                                    {
+                                        $this->userController->userRegisterForm();//UserRegisterFormController.php
                                     }
                                     //inscription user
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'register'){  
-                                        //si tous les controles sont réussi , on appel userRegisterFormOk() qui est dans UserRegisterFormController.php
-                                        $this->userController->userRegister();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'register')
+                                    {  
+                                        $this->userController->userRegister();// UserRegisterFormController.php
                                     }
                                     //logout user
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'logout'){  
-                                        //si tous les controles sont réussi , on appel  userLougout() qui est dans UserLogoutController.php
-                                        $this->userController->userLougout();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'logout')
+                                    {  
+                                        $this->userController->userLougout();//UserLogoutController.php
                                     }
                                     // user supprime son compte
                                     elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'deleteUser'){
                                         if(array_key_exists('id', $_GET)){
                                             if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){ 
-                                                    //si tous les controles sont réussi , on appel  userDeleteSelf() qui est dans UserDeleteSelfController.php
-                                                    $this->userController->userDeleteSelf();
+                                                if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                { 
+                                                    $this->userController->userDeleteSelf();//UserDeleteSelfController.php
                                                 }else{
                                                     $this->HomeController->getHome();
                                                 }
@@ -162,22 +180,22 @@ class Router{
                                         }
                                     }
                                     //prendre un RDV , affiche form
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'bookingForm'){  
-                                        //si tous les controles sont réussi , on appel userBookingForm() qui est dans UserBookingFormController.php
-                                        $this->userController->bookingFormView();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'bookingForm')
+                                    {  
+                                        $this->userController->bookingFormView();//UserBookingFormController.php
                                     }
                                     // RDV confirmer
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'booking'){  
-                                        //si tous les controles sont réussi , on appel userBookingForm() qui est dans UserBookingFormController.php
-                                        $this->userController->userBookingForm();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'booking')
+                                    {  
+                                        $this->userController->userBookingForm();//UserBookingFormController.php
                                     }
                                     // Afficher les rendez-vous de user
                                     elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'userRDV'){ 
                                         if(array_key_exists('user_i', $_GET)){
                                             if(isset($_GET['user_i']) && !empty($_GET['user_i'])){ 
-                                                if(ctype_digit($_GET['user_i'])&& $_GET['user_i'] > 0){ 
-                                                    //si tous les controles sont réussi , on appel getRDV() qui est dans UserBookingController.php
-                                                    $this->userController->getRDV();
+                                                if(ctype_digit($_GET['user_i'])&& $_GET['user_i'] > 0)
+                                                {     
+                                                    $this->userController->getRDV();//UserBookingController.php
                                                 }else{
                                                     $this->HomeController->getHome();
                                                 }
@@ -192,9 +210,9 @@ class Router{
                                     elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'deleteOneBooking'){ 
                                         if(array_key_exists('id', $_GET)){
                                             if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){ 
-                                                    //si tous les controles sont réussi , on appel getRDV() qui est dans UserBookingController.php
-                                                    $this->userController->deleteRDV();
+                                                if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                {     
+                                                    $this->userController->deleteRDV();//UserBookingController.php
                                                 }else{
                                                     $this->HomeController->getHome();
                                                 }
@@ -209,9 +227,9 @@ class Router{
                                     elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'deleteOneArticle'){ 
                                         if(array_key_exists('id', $_GET)){
                                             if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){
-                                                    //si tous les controles sont réussi , on appel deleteOneArticle() qui est dans PanierController.php
-                                                    $this->PanierController->deleteOneArticle();
+                                                if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                {    
+                                                    $this->PanierController->deleteOneArticle();//PanierController.php
                                                 }else{
                                                     $this->HomeController->getHome();
                                                 }
@@ -234,11 +252,13 @@ class Router{
                             }
                         }
                         // afficher le tarif de toute les voitures
-                        elseif ($_GET['action'] === 'tarif') {
+                        elseif ($_GET['action'] === 'tarif') 
+                        {
                             $this->tarifController->getTarif();
                         }
                         // afficher le a propos de l'entreprise
-                        elseif ($_GET['action'] === 'aPropos') {
+                        elseif ($_GET['action'] === 'aPropos') 
+                        {
                             getAPropos();
                         }
                         //connexion admin // inscription admin
@@ -246,37 +266,37 @@ class Router{
                             if(array_key_exists('action2', $_GET)){
                                 if(isset($_GET['action2']) && !empty($_GET['action2'])){
                                     //afficher un formulaire de connexion admin
-                                    if(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'loginForm'){
-                                        //si tous les controles sont réussi , on appel loginFormView() qui est dans AdminLoginController.php
-                                        $this->adminController->adminLoginForm();
+                                    if(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'loginForm')
+                                    {
+                                        $this->adminController->adminLoginForm();//AdminLoginController.php
                                     }
                                     //connexion admin
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'loginAdmin'){  
-                                        //si tous les controles sont réussi , on appel adminLogin() qui est dans AdminLoginController.php
-                                        $this->adminController->adminLogin();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'loginAdmin')
+                                    {  
+                                        $this->adminController->adminLogin();// AdminLoginController.php
                                     }
                                     //afficher un formulaire d'inscription admin
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'registerForm'){
-                                        //si tous les controles sont réussi , on appel adminRegisterForm() qui est dans AdminRegisterController.php
-                                        $this->adminController->adminRegisterForm();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'registerForm')
+                                    {
+                                        $this->adminController->adminRegisterForm();//AdminRegisterController.php
                                     }
                                     //iscription admin
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'registerAdmin'){  
-                                        //si tous les controles sont réussi , on appel adminRegister() qui est dans AdminRegisterController.php
-                                        $this->adminController->adminRegister();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'registerAdmin')
+                                    {  
+                                        $this->adminController->adminRegister();// AdminRegisterController.php
                                     }
                                     //déconnexion admin
-                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'logout'){  
-                                        //si tous les controles sont réussi , on appel adminLogout() qui est dans AdminLogoutController.php
-                                        $this->adminController->adminLogout();
+                                    elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'logout')
+                                    {  
+                                        $this->adminController->adminLogout();// AdminLogoutController.php
                                     }
                                     //admin supprime son compte
                                     elseif(ctype_alpha($_GET['action2']) && $_GET['action2'] === 'deleteAdmin'){  
                                         if(array_key_exists('id', $_GET)){
                                             if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){ 
-                                                    //si tous les controles sont réussi , on appel adminDelete() qui est dans AdminDeleteSelfController.php
-                                                    $this->adminController->adminDeleteSelf();
+                                                if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                { 
+                                                    $this->adminController->adminDeleteSelf();// AdminDeleteSelfController.php
                                                 }else{
                                                     $this->HomeController->getHome();
                                                 }
@@ -292,27 +312,27 @@ class Router{
                                         if(array_key_exists('action3', $_GET)){
                                             if(isset($_GET['action3']) && !empty($_GET['action3'])){
                                                 //admin affiche un formulaire d'ajoute de users
-                                                if(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'addForm'){
-                                                    //si tous les controles sont réussi , on appel adminAddFormUsers() qui est dans AdminAddUserController.php
-                                                    $this->adminUsersController->adminAddFormUsers();
+                                                if(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'addForm')
+                                                {    
+                                                    $this->adminUsersController->adminAddFormUsers();//AdminAddUserController.php
                                                 }
                                                 //admin ajoute users
-                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'add'){
-                                                    //si tous les controles sont réussi , on appel adminAddUsers() qui est dans AdminAddUserController.php
-                                                    $this->adminUsersController->adminAddUsers();
+                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'add')
+                                                {
+                                                    $this->adminUsersController->adminAddUsers();//AdminAddUserController.php
                                                 }
                                                 // afficher tous les users
                                                 elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'get'){
-                                                    //si tous les controles sont réussi , on appel adminGetUsers() qui est dans AdminGetUsersController.php
-                                                    $this->adminUsersController->adminGetUsers();
+                                                    
+                                                    $this->adminUsersController->adminGetUsers();//AdminGetUsersController.php
                                                 }
                                                 // afficher le formulaire pour modifier un users
                                                 elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'editForm'){
                                                     if(array_key_exists('id', $_GET)){
                                                         if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){
-                                                                //si tous les controles sont réussi , on appel adminEditFromUsers() qui est dans AdminEditFromUsersController.php
-                                                                $this->adminUsersController->adminEditFormUsers();
+                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                            {    
+                                                                $this->adminUsersController->adminEditFormUsers();//AdminEditFromUsersController.php
                                                             }else{
                                                                 $this->HomeController->getHome();
                                                             }
@@ -324,17 +344,17 @@ class Router{
                                                     }
                                                 }
                                                 // admin modifie un users
-                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'edit'){
-                                                    //si tous les controles sont réussi , on appel adminEditUsers() qui est dans AdminEditFromUsersController.php
-                                                    $this->adminUsersController->adminEditUsers();
+                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'edit')
+                                                {    
+                                                    $this->adminUsersController->adminEditUsers();//AdminEditFromUsersController.php
                                                 }
                                                 // admin supprime un users
                                                 elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'delete'){
                                                     if(array_key_exists('id', $_GET)){
                                                         if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){
-                                                                //si tous les controles sont réussi , on appel adminDeleteUsers() qui est dans AdminDeleteUsersController.php
-                                                                $this->adminUsersController->adminDeleteUsers();
+                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                            {    
+                                                                $this->adminUsersController->adminDeleteUsers();//AdminDeleteUsersController.php
                                                             }else{
                                                                 $this->HomeController->getHome();
                                                             }
@@ -359,27 +379,27 @@ class Router{
                                         if(array_key_exists('action3', $_GET)){
                                             if(isset($_GET['action3']) && !empty($_GET['action3'])){
                                                 //admin affiche tous les voitures
-                                                if(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'get'){
-                                                    //si tous les controles sont réussi , on appel adminGetCars() qui est dans AdminGetCarsController.php
-                                                    $this->adminCarsController->adminGetCars();
+                                                if(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'get')
+                                                {    
+                                                    $this->adminCarsController->adminGetCars();//AdminGetCarsController.php
                                                 }
                                                 //admin affiche un formulaire d'ajoute de cars
-                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'addForm'){
-                                                    //si tous les controles sont réussi , on appel adminAddFormCars() qui est dans AdminAddCarsController.php
-                                                    $this->adminCarsController->adminAddFormCars();
+                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'addForm')
+                                                {    
+                                                    $this->adminCarsController->adminAddFormCars();//AdminAddCarsController.php
                                                 }
                                                 //admin ajoute cars
-                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'add'){
-                                                    //si tous les controles sont réussi , on appel adminAddCars() qui est dans AdminAddCarsController.php
-                                                    $this->adminCarsController->adminAddCars();
+                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'add')
+                                                {    
+                                                    $this->adminCarsController->adminAddCars();//AdminAddCarsController.php
                                                 }
                                                 //admin supprime cars
                                                 elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'delete'){
                                                     if(array_key_exists('id', $_GET)){
                                                         if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){
-                                                                //si tous les controles sont réussi , on appel adminDeleteCars() qui est dans AdminDeleteCarsController.php
-                                                                $this->adminCarsController->adminDeleteCars();
+                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                            {    
+                                                                $this->adminCarsController->adminDeleteCars();//AdminDeleteCarsController.php
                                                             }else{
                                                                 $this->HomeController->getHome();
                                                             }
@@ -394,9 +414,9 @@ class Router{
                                                 elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'editForm'){
                                                     if(array_key_exists('id', $_GET)){
                                                         if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                            if(ctype_digit($_GET['id']) && $_GET['id'] > 0){
-                                                                //si tous les controles sont réussi , on appel adminEditFormCars() qui est dans AdminEditFormController.php
-                                                                $this->adminCarsController->adminEditFormCars();
+                                                            if(ctype_digit($_GET['id']) && $_GET['id'] > 0)
+                                                            {    
+                                                                $this->adminCarsController->adminEditFormCars();// AdminEditFormController.php
                                                             }else{
                                                                 $this->HomeController->getHome();
                                                             }
@@ -408,9 +428,9 @@ class Router{
                                                     }
                                                 }
                                                 //admin  modifier un car
-                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'edit'){
-                                                    //si tous les controles sont réussi , on appel adminEditCars() qui est dans AdminEditController.php
-                                                    $this->adminCarsController->adminEditCars();
+                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'edit')
+                                                {    
+                                                    $this->adminCarsController->adminEditCars();// AdminEditController.php
                                                 }else{
                                                     $this->HomeController->getHome();
                                                 }
@@ -426,17 +446,17 @@ class Router{
                                         if(array_key_exists('action3', $_GET)){
                                             if(isset($_GET['action3']) && !empty($_GET['action3'])){
                                                 //admin affiche tous les rendez-vous
-                                                if(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'get'){
-                                                    //si tous les controles sont réussi , on appel adminGetBooking() qui est dans AdminGetBookingController.php
-                                                    $this->adminBookingController->adminGetBooking();
+                                                if(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'get')
+                                                {
+                                                    $this->adminBookingController->adminGetBooking();//AdminGetBookingController.php
                                                 }
                                                 //admin supprime un rendez-vous
                                                 elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'delete'){
                                                     if(array_key_exists('id', $_GET)){
                                                         if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){
-                                                                //si tous les controles sont réussi , on appel adminDeleteBooking() qui est dans AdminDeleteBookingController.php
-                                                                $this->adminBookingController->adminDeleteBooking();
+                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                            {    
+                                                                $this->adminBookingController->adminDeleteBooking();//AdminDeleteBookingController.php
                                                             }
                                                             else{
                                                                 $this->HomeController->getHome();
@@ -452,9 +472,9 @@ class Router{
                                                 elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'bookingForm'){
                                                     if(array_key_exists('id', $_GET)){
                                                         if(isset($_GET['id']) && !empty($_GET['id'])){ 
-                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0){
-                                                                //si tous les controles sont réussi , on appel adminBookingFormUser() qui est dans AdminBookingUserController.php
-                                                                $this->adminBookingController->adminBookingFormUser();
+                                                            if(ctype_digit($_GET['id'])&& $_GET['id'] > 0)
+                                                            {    
+                                                                $this->adminBookingController->adminBookingFormUser();//AdminBookingUserController.php
                                                             }else{
                                                                 $this->HomeController->getHome();
                                                             }
@@ -466,9 +486,9 @@ class Router{
                                                     }       
                                                 }
                                                 // admin ajoute un RDV pour un user
-                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'bookingAdd'){
-                                                    //si tous les controles sont réussi , on appel adminBookingUser() qui est dans AdminBookingUserController.php
-                                                    $this->adminBookingController->adminAddBookingUser();
+                                                elseif(ctype_alpha($_GET['action3']) && $_GET['action3'] === 'bookingAdd')
+                                                {    
+                                                    $this->adminBookingController->adminAddBookingUser();//AdminBookingUserController.php
                                               
                                                 }else{
                                                     $this->HomeController->getHome();
