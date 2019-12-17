@@ -1,7 +1,5 @@
 <?php
-//model , gestion de la base de donnée
 
-//inclure la classe Model
 require_once 'model/Model.php';
 
 class UserModel extends Model{
@@ -20,12 +18,9 @@ class UserModel extends Model{
     public function registerUser(string $first_name, string $last_name, string $email, string $password) : void{
       
 
-        /* on teste si le mail existe et est valide , s'il est différent de false , on continue.
-        //filter_var — Filtre une variable avec un filtre spécifique
-        */
+        /* on teste si le mail existe et est valide , s'il est différent de false , on continue.*/
         if(isset($email) && filter_var($email, FILTER_VALIDATE_EMAIL) !== false){
         
-            //si le mail est dans la table user , on selectionne tous le contenue de cette table
             $sql = "SELECT * From user WHERE mail = :mail ";
 
             $userExist = $this->pdo->prepare($sql);
@@ -54,8 +49,6 @@ class UserModel extends Model{
                 ':mail' => $email, 
                 ':password' => $passwordHashed
             ]);
-
-            //return $userExist; 
         }
     }
 
@@ -72,14 +65,12 @@ class UserModel extends Model{
     */
     public function loginUser(string $email, string $password) : array {
 
-        //si le mail est dans la table user , on selectionne tous le contenue de cette table
         $sql = "SELECT * From user WHERE mail = :mail ";
 
         $userExist = $this->pdo->prepare($sql);
         $userExist->execute([':mail' => $email]);
         $userExist = $userExist->fetch();
 
-        //on teste si le mail exist dans la table user
         if(!$userExist){
             throw new PDOException(('User inconnu - cet email n\' existe pas'));
         }
@@ -112,7 +103,6 @@ class UserModel extends Model{
     /** user supprime son compte 
      * 
      * @param int $id
-     * 
      * @return void
     */
     public function deleteSelfUser(int $id) : void {
@@ -126,9 +116,7 @@ class UserModel extends Model{
 
 
     /** user affiche ses RDV 
-     * 
      * @param int $user_i
-     * 
      * @return array $getBooking
     */
     public function getBooking(int $user_i) : array {
@@ -146,9 +134,7 @@ class UserModel extends Model{
 
 
     /** user efface un RDV
-     * 
      * @param int $id
-     * 
      * @return void
     */
     public function deleteBooking(int $id) : void {
@@ -193,5 +179,4 @@ class UserModel extends Model{
             ':car_id' => $car_id
         ]);
     }
-
 }
