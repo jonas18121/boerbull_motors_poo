@@ -1,14 +1,9 @@
 <?php
-
-//inclure la classe Model
 require_once 'model/admin/AdminModel.php';
-
-//appel dans la librairie
 include_once 'library/Tools.php';
 
-class AdminCarsModel extends AdminModel{
-
-
+class AdminCarsModel extends AdminModel
+{
             //// Afficher ////
     /** Afficher tous les cars 
      * 
@@ -22,9 +17,6 @@ class AdminCarsModel extends AdminModel{
 
         return $adminGetCars;
     }
-
-
-
 
             //// Ajouter ////
     /** admin ajoute une voiture 
@@ -45,8 +37,8 @@ class AdminCarsModel extends AdminModel{
      * 
      * @return void  
      */ 
-    public function addCars(string $marque, string $modele, int $annee, int $conso, string $color, int $prix_trois_jours, int $puissance, string $moteur, string $carburant, int $cent, int $nombre_de_place, int $id_category, string $image_url) : void {
-     
+    public function addCars(string $marque, string $modele, int $annee, int $conso, string $color, int $prix_trois_jours, int $puissance, string $moteur, string $carburant, int $cent, int $nombre_de_place, int $id_category, string $image_url) : void 
+    {
         $sql = "INSERT INTO car(marque, modele, annee, conso, color, prix_trois_jours, puissance, moteur, carburant, cent, nombre_de_place, id_category, image_url) 
             VALUES(:marque, :modele, :annee, :conso, :color, :prix_trois_jours, :puissance, :moteur, :carburant, :cent, :nombre_de_place, :id_category, :image_url)";
 
@@ -70,14 +62,12 @@ class AdminCarsModel extends AdminModel{
         ]);
     }
 
-
-
     /** admin ajoute une categorie à la voiture qu'on a ajouter 
      * 
      * @return array $category
     */
-    public function category() : array {
-
+    public function category() : array 
+    {
         $sql = "SELECT * FROM category";
         $category = $this->pdo->query($sql);
         $category = $category->fetchAll();
@@ -85,20 +75,15 @@ class AdminCarsModel extends AdminModel{
         return $category;
     }
 
-
-
-
-
                 //// Modifier ////
     //en $_GET
     /** admin affiche le car a modifier 
      * 
      * @param int $id
-     * 
      * @return array $editFormCars
     */
-    public function editFormCars(int $id) : array {
-
+    public function editFormCars(int $id) : array 
+    {
         $sql = "SELECT * FROM car WHERE id = :id";
 
         $editFormCars = $this->pdo->prepare($sql);
@@ -108,14 +93,11 @@ class AdminCarsModel extends AdminModel{
         if(empty($editFormCars)){
             redirect("index.php");
         }
-
         return $editFormCars;
     }
 
-
-    
     // en $_POST
-    /** admin insert le contenu modifier du car 
+    /** admin modifie les paramètres d'une voiture précise 
      * 
      * @param string $marque
      * @param string $modele
@@ -133,9 +115,8 @@ class AdminCarsModel extends AdminModel{
      * 
      * @return void
     */
-    public function editCars(string $marque, string $modele, int $anne, int $conso, string $color, int $prix_trois_jours, int $puissance, string $moteur, string $carburant, int $cent, int $nombre_de_place, int $id_category, int $id) : void {
-
-        // requète pour modifier un car précis
+    public function editCars(string $marque, string $modele, int $anne, int $conso, string $color, int $prix_trois_jours, int $puissance, string $moteur, string $carburant, int $cent, int $nombre_de_place, int $id_category, int $id) : void 
+    {
         $sql = "UPDATE car SET marque = :marque, modele = :modele, annee = :annee, conso = :conso, color = :color, prix_trois_jours = :prix_trois_jours, 
             puissance = :puissance, moteur = :moteur, carburant = :carburant, cent = :cent, nombre_de_place = :nombre_de_place, id_category = :id_category WHERE id = :id";
 
@@ -157,19 +138,14 @@ class AdminCarsModel extends AdminModel{
         ]);
     }
 
-
-
-
-
                 //// Supprimer ////
     /** supprimer un car 
      * 
      * @param int $id
-     * 
      * @return void
     */
-    public function deleteCar(int $id) : void {
-
+    public function deleteCar(int $id) : void 
+    {
         $sql = "DELETE FROM car WHERE id = :id ";
 
         $deleteUser = $this->pdo->prepare($sql);
