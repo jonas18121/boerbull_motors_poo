@@ -12,7 +12,7 @@ class AdminBookingController extends AdminController{
     {
         // instance de session et de model
         parent::__construct();
-        $this->adminBookingModel = new AdminBookingModel();
+        //$this->adminBookingModel = new AdminBookingModel();
         $this->adminUsersModel = new AdminUsersModel();
     }
 
@@ -26,7 +26,7 @@ class AdminBookingController extends AdminController{
         }
     
         //appel de la fontion du model
-        $adminFindBooking = $this->adminBookingModel->findBooking();
+        $adminFindBooking = $this->adminUsersModel->findBooking();
 
         //appel de la vue
         require_once 'www/templates/admin/booking/get/AdminGetBookingView.phtml';
@@ -43,15 +43,11 @@ class AdminBookingController extends AdminController{
         }
 
         // Avec $_GET, on recupère la valeur de l'id qui est dans l'url 
-        $this->adminBookingModel->deleteBookingAdmin($_GET['id']);
+        $this->adminUsersModel->deleteBookingAdmin($_GET['id']);
 
         //on redirectionne l'admin vers la liste des voitures
         redirect("index.php?action=admin&action2=booking&action3=get");
     }
-
-
-
-
 
                     //// ajouter un RDV ////  
     //en $_GET
@@ -68,8 +64,6 @@ class AdminBookingController extends AdminController{
         //appel de la vue
         require_once 'www/templates/admin/users/booking/AdminBookingUserView.php';
     }
-
-
 
     //en $_POST
     //ajoute un RDV pour un user
@@ -88,7 +82,7 @@ class AdminBookingController extends AdminController{
                             if(array_key_exists('booking_time_fin',$_POST) && isset($_POST['booking_time_fin'])){ 
                                 if(array_key_exists('number_of_seats',$_POST) && isset($_POST['number_of_seats']) && ctype_digit($_POST['number_of_seats'])){ 
                 
-                                    $this->adminBookingModel->adminAddBooking($_POST['user_i'], $_POST['booking_date_debut'], $_POST['booking_time_debut'], $_POST['booking_date_fin'], $_POST['booking_time_fin'], $_POST['number_of_seats']);
+                                    $this->adminUsersModel->adminAddBooking($_POST['user_i'], $_POST['booking_date_debut'], $_POST['booking_time_debut'], $_POST['booking_date_fin'], $_POST['booking_time_fin'], $_POST['number_of_seats']);
 
                                     redirect("index.php?action=admin&action2=booking&action3=get");
                                 }

@@ -67,7 +67,7 @@ class Routers{
      */
     public function run()
     {
-        try{// le bloc try catch sevira pour renvoyer les erreurs, s'il y en a 
+        try{
             if($_GET){
                 if(isset($_GET['action']) && !empty($_GET['action'])){
                     if(array_key_exists('action', $_GET) && ctype_alpha($_GET['action'])){
