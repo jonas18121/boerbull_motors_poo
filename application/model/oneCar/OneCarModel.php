@@ -1,12 +1,6 @@
 <?php
-//model , gestion de la base de donnée
-
-//inclure la classe Model
 require_once 'model/Model.php';
-
-//appel dans la librairie
 include_once 'library/Tools.php';
-
 
 class OneCarModel extends Model{
 
@@ -14,17 +8,14 @@ class OneCarModel extends Model{
     /** selectionne une voiture 
      * 
      * @param int
-     * 
      * @return array
     */
-    public function OneCar($one){
-       
-
+    public function OneCar(int $one) : array 
+    {
         $sql = "SELECT * FROM car WHERE id = :id";
 
         $oneCar = $this->pdo->prepare($sql);
         $oneCar->execute(array('id' => $one));
-
         $oneCar = $oneCar->fetchAll();
     
         if(empty($oneCar)){
@@ -37,12 +28,11 @@ class OneCarModel extends Model{
 
     /** selectionne une voiture 
      * 
-     * @param array
-     * 
-     * @return array
+     * @param array $session
+     * @return array $oneCar
     */
-    public function OneCarBooking(array $session){
-
+    public function OneCarBooking(array $session) :array
+    {
         $sql = 'SELECT * FROM car WHERE id IN ('.implode(',',$session).')';
 
         $oneCar = $this->pdo->prepare($sql);

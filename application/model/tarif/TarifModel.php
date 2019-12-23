@@ -1,7 +1,4 @@
 <?php
-//model , gestion de la base de donnée
-
-//inclure la classe Model
 require_once 'model/Model.php';
 
 class TarifModel extends Model{
@@ -10,7 +7,8 @@ class TarifModel extends Model{
      * 
      * @return array $tarifView
      */
-    public function getTarifs() : array {
+    public function getTarifs() : array 
+    {
 
         $sql = "SELECT marque, modele, prix_trois_jours, puissance, name FROM car INNER JOIN category ON category.id = car.id_category";
 

@@ -1,5 +1,4 @@
 <?php
-//inclure la bdd
 require_once 'config/DataBase.php';
 
 abstract class Model{

@@ -1,27 +1,18 @@
 <?php
-//model , gestion de la base de donnée
-
-//inclure la bdd
-require_once 'config/DataBase.php';
-
-//appel dans la librairie
+require_once 'model/Model.php';
 include_once 'library/Tools.php';
 
 
 /** selectionner par categorie 
  * 
- * @param int
- * 
- * @return array
+ * @param int $category
+ * @return array $categories
 */
-function findCategory($category){
-    //connexion à la bdd
-    $db = new Database;
-    $db = $db->dbConnect();
-
+function findCategory(int $category) :array
+{
     $sql = "SELECT car.id, image_url, modele, marque, name FROM car INNER JOIN category ON category.id = car.id_category WHERE category.id = :id_category";
 
-    $categories = $db->prepare($sql);
+    $categories = $this->pdo->prepare($sql);
     $categories->execute(array('id_category' => $category));
 
     $categories = $categories->fetchAll();
@@ -33,19 +24,14 @@ function findCategory($category){
 } 
 
 
-
-// cette function est présente dans le HomeModel.php , sauf que ici on est pas limité a 5 voitures max
 /** selectionner toutes les voitures 
  *
  * @return array 
  */ 
-function findAllo(){ 
-
-    $db = new Database;
-    $db = $db->dbConnect();
-    
+function findAllo()
+{ 
     $sql = "SELECT * FROM car ";
-    $categories = $db->query($sql);
+    $categories = $this->pdo->query($sql);
     $categories = $categories->fetchAll();
     return  $categories;
 }
