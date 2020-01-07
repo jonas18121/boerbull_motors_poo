@@ -3,6 +3,7 @@ require_once 'model/HomeModel.php';
 
 class HomeController{
 
+    /** @var HomeModel */
     private $homeModel;
 
     public function __construct()
@@ -16,5 +17,3 @@ class HomeController{
         require_once 'www/templates/HomeView.phtml';
     }
 }
-
-
