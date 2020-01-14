@@ -1,11 +1,9 @@
 <?php
-//controlleur mettre en relation le model et la vue 
-
-//appel du model
 require_once 'model/car/CarModel.php';
 
 class CarController{
 
+    /** @var CarModel */
     private $carModel;
 
     public function __construct()
@@ -13,27 +11,17 @@ class CarController{
         $this->carModel = new CarModel();
     }
 
-    //afficher une voiture
-    //A partir du routeur , getOneCar() appelera notre function OneCar()
-    public function getOneCar(){
-
-        //appel de la fontion du model
+    /** afficher une voiture */
+    public function getOneCar()
+    {
         $oneCar = $this->carModel->OneCar($_GET['id']);
-
-        //appel de la vue
         require_once 'www/templates/oneCar/OneCarView.phtml';
     }
 
-
-
-    // selectionner des voitures par categorie 
-    //A partir du routeur , getOneCategory() appelera notre function findCategory
-    public function getOneCategory(){
-
-        //appel de la fontion du model
+    /** selectionner des voitures par categorie  */ 
+    public function getOneCategory()
+    {
         $categories = $this->carModel->findCategory($_GET['id_category']);
-
-        //appel de la vue
         require_once 'www/templates/category/CategoryView.phtml';
     }
 }
