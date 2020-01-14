@@ -1,10 +1,7 @@
 <?php
-//controlleur mettre en relation le model et la vue 
 
-
-
-//A partir du routeur , getAPropos() affichera la vue
-function getAPropos(){
-    // appel de la vue
+/** afficher la vue a propos */
+function getAPropos()
+{
     require_once 'www/templates/aPropos/AProposView.phtml';
 }
