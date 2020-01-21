@@ -77,11 +77,6 @@ nav a, nav > ul::after, .entreprise, .adminAddCar, .carView{
 
 /* /////////// H E A D E R ////////////// */
 
-
-
-
-
-
 nav{
     font-size: 3rem;
     margin-top: 4rem;
@@ -91,8 +86,6 @@ nav a{
     font-size: 2.5rem;
     padding: 2.5rem;
 }
-
-
 
 h1{
     font-size: 5.6rem;
@@ -241,6 +234,46 @@ h3{
 .myImgOneCar{
     width: 100%;
 } 
+
+/* ********* F O R M ***************** */
+
+input[type=text],input[type=password], input[type=submit], textarea{
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem auto;
+    display: inline-block;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.4rem;
+    box-sizing: border-box;
+}
+
+textarea{
+    resize: vertical;
+}
+
+input[type=submit]{
+    background-color: #f6dc12;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+}
+
+input[type=submit]:hover{
+    background-color: #a6a100;
+}
+
+.divForm{
+    border-radius: 0.5rem;
+    background-color: #f2f2f2;
+    padding: 2rem;
+    /* margin: 1rem auto 0; */
+    margin: 1rem;
+}
+
+#klikici{
+    color: #f6dc12;
+}
 
 
 
@@ -398,5 +431,11 @@ footer{
     
     .sectionUniversel fieldset{
         display: inline;
+    }
+
+    /* ********* F O R M ********** */
+    .divForm{
+        width: 50%;
+        margin: 1rem auto;
     }
 }  
