@@ -205,12 +205,3 @@ document.addEventListener('DOMContentLoaded', function(){
     firstName.addEventListener("input", verifFirstName);//controle du prenom en fin de saisie 
     
 });
-
-
-
-
-
-
-
-
-
