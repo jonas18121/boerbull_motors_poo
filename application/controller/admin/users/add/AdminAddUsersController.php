@@ -17,6 +17,7 @@ class AdminAddUsersController{
         $this->adminSession     = new AdminSession();
         $this->adminUsersModel  = new AdminUsersModel();
     }
+    
     //en GET
     //affiche le formulaire d'ajout de user
     public function adminAddFormUsers()
