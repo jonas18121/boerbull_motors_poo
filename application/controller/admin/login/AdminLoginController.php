@@ -1,56 +1,47 @@
 <?php
-//controlleur mettre en relation le model et la vue 
-
-//appel du model
-require_once 'model/admin/login/AdminLoginModel.php';
-
-//appel de la session
+require_once 'model/admin/login/AdminUsersModel.php';
 require_once 'aSession/AdminSession.php';
 
 
 class AdminLoginController{
 
+    /** @var AdminSession */
     private $adminSession;
-    private $adminLoginModel;
+
+    /** @var AdminUsersModel */
+    private $adminUsersModel;
 
     public function __construct()
     {
-        // instance de session et de model
-        $this->adminSession = new AdminSession();
-        $this->adminLoginModel = new AdminLoginModel();
+        $this->adminSession     = new AdminSession();
+        $this->adminUsersModel  = new AdminUsersModel();
     }
 
     // en $_GET
-    public function adminLoginForm(){
-        //appel de la vue
+    //formulaire de connexion
+    public function adminLoginForm()
+    {
         require_once 'www/templates/admin/login/AdminLoginFormView.phtml';
     }
 
 
 
     // en $_POST
-    //A partir du routeur , il appelera notre function adminLogin()
-    public function adminLogin(){
-
-        //controle de formulaire en php
+    //connexion admin
+    public function adminLogin()
+    {
         if(!empty($_POST)){
             if(array_key_exists('password',$_POST) && isset($_POST['password']) && strlen($_POST['password']) >= 8){
                 if(array_key_exists('mail',$_POST) && isset($_POST['mail'])){
                     if(preg_match("/^[a-zA-Z][a-zA-Z0-9._-]{1,19}@[a-z]{4,7}\.[a-z]{2,3}$/", $_POST['mail'])){
 
-                        //connection admin
-                        $login = $this->adminLoginModel->loginAdmin($_POST['mail'], $_POST['password']);
-                        //on crée la session
-                    
+                        $login = $this->adminUsersModel->loginAdmin($_POST['mail'], $_POST['password']);
                         $this->adminSession->adminCreate($login['id'], $login['name'], $login['mail']);
-                        //redirection à la page d'accueil
                         redirect('index.php');
                     }
                 }
             }
         }
-
-        //si un controle n'est pas bon, redirection à la page de connexion
         redirect('index.php?action=admin&action2=loginForm'); 
     }
 }
