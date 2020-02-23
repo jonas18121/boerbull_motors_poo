@@ -1,6 +1,4 @@
 <?php
-
-//appel du model
 require_once 'model/admin/booking/AdminBookingModel.php';
 require_once 'model/admin/users/AdminUsersModel.php';
 
