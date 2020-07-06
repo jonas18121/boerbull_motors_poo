@@ -2,7 +2,7 @@
 //controlleur mettre en relation le model et la vue 
 
 //appel du model
-require_once 'model/admin/car/add/AdminAddCarsModel.php';
+require_once 'model/admin/car/add/AdminCarsModel.php';
 
 //appel de la session
 require_once 'aSession/AdminSession.php';
@@ -21,7 +21,7 @@ class AdminAddCarsController{
     {
         // instance de session et de model
         $this->adminSession = new AdminSession();
-        $this->adminAddCarsModel = new AdminAddCarsModel();
+        $this->adminAddCarsModel = new AdminCarsModel();
     }
 
     //en GET

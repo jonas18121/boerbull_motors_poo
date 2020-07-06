@@ -4,7 +4,7 @@ require_once 'model/car/CarModel.php';
 class CarController{
 
     /** @var CarModel */
-    private $carModel;
+    private CarModel $carModel;
 
     public function __construct()
     {

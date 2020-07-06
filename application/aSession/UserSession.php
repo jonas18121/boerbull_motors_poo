@@ -1,13 +1,12 @@
 <?php
 
+// forcer les erreurs si on a pas bien typé nos class
+declare(strict_types=1);
+
 //appel du model
 include_once 'model/panier/NewPanierModel.php';
 
-
-
 class UserSession{
-
-
 
     public function __construct(){
 
@@ -22,30 +21,40 @@ class UserSession{
             $ClassPanier = new PanierModel(); 
             $ClassPanier->deleteAll();
         }
-
     }    
 
-
-
-
-    // Construction de la session utilisateur.
-    public function create($userId, $firstName, $lastName, $email){
-        
-        $_SESSION['user']['id'] = $userId;
+    /**
+     * Construction de la session utilisateur.
+     *
+     * @param int $userId
+     * @param string $firstName
+     * @param string $lastName
+     * @param string $email
+     * @return void
+     */
+    public function create(int $userId, string $firstName, string $lastName, string $email) : void
+    {
+        $_SESSION['user']['id']         = $userId;
         $_SESSION['user']['first_name'] = $firstName;
-        $_SESSION['user']['last_name'] = $lastName;
-        $_SESSION['user']['mail'] = $email;
+        $_SESSION['user']['last_name']  = $lastName;
+        $_SESSION['user']['mail']       = $email;
     }
 
-    // Destruction de l'ensemble de la session.
-    public function userDestroy(){
+    /**
+     * Destruction de l'ensemble de la session.
+     * @return void
+     */
+    public function userDestroy() : void
+    {
         unset($_SESSION['user']);
     }
 
-
-    //afficher le mail
-    public function getEmail(){
-
+    /**
+     * Afficher le mail
+     * @return void
+     */
+    public function getEmail() : ?array
+    {
         if (!$this->isAuthenticatedUser()) {
             return null;
         }
@@ -53,10 +62,12 @@ class UserSession{
         return $_SESSION['user']['mail'];
     }
 
-
-    //afficher le prénom
-    public function getFirstName(){
-
+    /**
+     * Afficher le prénom
+     * @return void
+     */
+    public function getFirstName() : ?array
+    {
         //if (!$this->isAuthenticated()) = si le user n'est pas connècté, alors ne rien renvoyé  
         if (!$this->isAuthenticatedUser()) {
             return null;
