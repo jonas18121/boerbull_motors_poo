@@ -1,6 +1,10 @@
 <?php
+
+// forcer les erreurs si on a pas bien typé nos class
+declare(strict_types=1);
+
 require_once 'model/Model.php';
-include_once 'library/Tools.php';
+require_once 'library/Tools.php';
 
 class CarModel extends Model{
 
@@ -9,7 +13,7 @@ class CarModel extends Model{
      * @param int $one
      * @return array $oneCar
     */
-    public function OneCar(int $one) : array 
+    public function OneCar(int $one) : array
     {
         $sql = "SELECT * FROM car WHERE id = :id";
 
