@@ -1,4 +1,7 @@
 <?php
+// forcer les erreurs si on a pas bien typé nos class
+declare(strict_types=1);
+
 ///////// inclure les controlleurs ///////////
 require_once 'controller/HomeController.php';                           //HOME//
 require_once 'controller/car/CarController.php';                        //CAR//
@@ -14,31 +17,31 @@ require_once 'controller/admin/booking/AdminBookingController.php';     //Admin 
 class Routers{
 
     /** @var HomeController */
-    private $HomeController;
+    private HomeController $HomeController;
 
     /** @var PanierController */
-    private $PanierController;
+    private PanierController $PanierController;
 
     /** @var CarController */
-    private $carController;
+    private CarController $carController;
 
     /** @var TarifController */
-    private $tarifController;
+    private TarifController $tarifController;
 
     /** @var UserController */
-    private $userController;
+    private UserController $userController;
 
     /** @var AdminController */
-    private $adminController;
+    private AdminController $adminController;
 
     /** @var AdminUsersController */
-    private $adminUsersController;
+    private AdminUsersController $adminUsersController;
 
     /** @var AdminCarsController */
-    private $adminCarsController;
+    private AdminCarsController $adminCarsController;
 
     /** @var AdminBookingController */
-    private $adminBookingController;
+    private AdminBookingController $adminBookingController;
 
     public function __construct()
     {
