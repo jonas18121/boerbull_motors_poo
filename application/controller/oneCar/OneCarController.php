@@ -4,7 +4,7 @@ require_once 'model/oneCar/OneCarModel.php';
 class OneCarController{
 
     /** @var OneCarModel */
-    private $oneCarModel;
+    private OneCarModel $oneCarModel;
 
     public function __construct()
     {
@@ -12,7 +12,7 @@ class OneCarController{
     }
 
     /** Afficher une voiture */
-    public function getOneCar()
+    public function getOneCar() : void
     {
         $oneCar = $this->oneCarModel->OneCar($_GET['id']);
         require_once 'www/templates/oneCar/OneCarView.phtml';

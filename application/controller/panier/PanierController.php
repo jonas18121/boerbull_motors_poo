@@ -1,8 +1,10 @@
 <?php
-require_once 'model/panier/NewPanierModel.php';
+
+require_once 'model/panier/PanierModel.php';
 require_once 'model/oneCar/OneCarModel.php';
 require_once 'library/Tools.php';
 require_once 'aSession/AdminSession.php';
+require_once 'aSession/UserSession.php';
 
 
 
@@ -11,12 +13,12 @@ class PanierController{
     /**
      * @var object UserSession
      */
-    private $userSession;
+    private UserSession $userSession;
 
     /**
      * @var object PanierModel
      */
-    private $panierModel;
+    private PanierModel $panierModel;
 
     
     public function __construct()
@@ -26,7 +28,7 @@ class PanierController{
     }
 
     /** ajouter un element au panier */
-    public function panierAdd()
+    public function panierAdd() : void
     {
         if(!$this->userSession->isAuthenticatedUser()){
             redirect("index.php?action=user&action2=loginForm");
@@ -37,7 +39,7 @@ class PanierController{
     }
 
     /** afficher resultat sur le tableau */
-    public function panierOpen()
+    public function panierOpen() : void
     {
         $session        = array_keys($_SESSION['panier']);
         $panier         = $this->panierModel->PanierView($session);
@@ -49,7 +51,7 @@ class PanierController{
     }
 
     /** effacer un article */
-    public function deleteOneArticle()
+    public function deleteOneArticle() : void
     {
         $this->panierModel->deleteOne($_GET['id']);
         $this->panierOpen();

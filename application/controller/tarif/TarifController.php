@@ -4,7 +4,7 @@ require_once 'model/tarif/TarifModel.php';
 class TarifController{
 
     /** @var TarifModel */
-    private $tarif;
+    private TarifModel $tarif;
 
     public function __construct()
     {
@@ -12,7 +12,7 @@ class TarifController{
     }
 
     /** Afficher les tarifs */
-    public function getTarif()
+    public function getTarif() : void
     {
         $tarifView = $this->tarif->getTarifs();
         require_once 'www/templates/tarif/TarifView.phtml';
