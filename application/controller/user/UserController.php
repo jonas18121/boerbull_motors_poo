@@ -1,6 +1,6 @@
 <?php
 require_once 'model/user/UserModel.php';
-require_once 'model/panier/NewPanierModel.php';
+require_once 'model/panier/PanierModel.php';
 require_once 'model/car/CarModel.php';
 require_once 'aSession/UserSession.php';
 require_once 'library/Tools.php';
@@ -9,16 +9,16 @@ require_once 'library/Tools.php';
 class UserController{
 
     /** @var UserSession */
-    private $userSession;
+    private UserSession $userSession;
 
     /** @var UserModel */
-    private $userModel;
+    private UserModel $userModel;
 
     /** @var PanierModel */
-    private $panierModel;
+    private PanierModel $panierModel;
 
     /** @var CarModel */
-    private $carModel;
+    private CarModel $carModel;
 
     public function __construct()
     {
@@ -34,7 +34,7 @@ class UserController{
     /** en $_GET
      * afficher le formulaire d'inscription
      */
-    public function userRegisterForm()
+    public function userRegisterForm() : void
     {
         require_once 'www/templates/user/register/UserRegisterFormView.phtml';
     }
@@ -42,7 +42,7 @@ class UserController{
     /** en $_POST
      * Permettre l'inscription si les controlles sont bons
      */
-    public function userRegister()
+    public function userRegister() : void
     {
         if(!empty($_POST)){
             if(array_key_exists('first_name',$_POST) && isset($_POST['first_name']) && ctype_alpha($_POST['first_name'])){
@@ -74,7 +74,7 @@ class UserController{
      /** en $_GET
       * afficher le formulaire de connection
       */
-    public function userLoginForm()
+    public function userLoginForm() : void
     {
         require_once 'www/templates/user/login/UserLoginFormView.phtml';
     }
@@ -82,7 +82,7 @@ class UserController{
     /** en $_POST
      * Permettre la connexion si les controlles sont bons
      */
-    public function userLogin()
+    public function userLogin() : void
     {
         if(!empty($_POST)){
             if(array_key_exists('password',$_POST) && isset($_POST['password']) && strlen($_POST['password']) >= 8){
@@ -113,7 +113,7 @@ class UserController{
     /** en $_GET
      * deconnexion de l'utilisateur
      */
-    public function userLougout()
+    public function userLougout() : void
     {
         $this->userSession->userDestroy();
         redirect('index.php');
@@ -126,7 +126,7 @@ class UserController{
     /** en $_GET
      * l'utilisateur supprime son compte
      */
-    public function userDeleteSelf()
+    public function userDeleteSelf() : void
     {
         if(!$this->userSession->isAuthenticatedUser())
         {
@@ -144,7 +144,7 @@ class UserController{
     /** en $_GET
      * Afficher le formulaire de réservation
      */
-    public function bookingFormView()
+    public function bookingFormView() : void
     {
         if(!$this->userSession->isAuthenticatedUser()){
             redirect('index.php?action=user&action2=loginForm');
@@ -166,7 +166,7 @@ class UserController{
     /** en POST
      *  l'utilisateur fait une reservation
      */
-    public function userBookingForm()
+    public function userBookingForm() : void
     {
         if(!$this->userSession->isAuthenticatedUser()){
             redirect('index.php?action=user&action2=loginForm');
@@ -217,7 +217,7 @@ class UserController{
     /** en $_GET
      * afficher les RDV
      */
-    public function getRDV()
+    public function getRDV() : void
     {
         if(!$this->userSession->isAuthenticatedUser()){
             redirect('index.php?action=user&action2=loginForm');
@@ -242,7 +242,7 @@ class UserController{
     /** en $_GET
      * effacer un RDV
      */
-    public function deleteRDV()
+    public function deleteRDV() : void
     {
         if(!$this->userSession->isAuthenticatedUser()){
             redirect('index.php?action=user&action2=loginForm');

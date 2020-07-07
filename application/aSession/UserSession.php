@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 //appel du model
-include_once 'model/panier/NewPanierModel.php';
+include_once 'model/panier/PanierModel.php';
 
 class UserSession{
 
@@ -51,9 +51,9 @@ class UserSession{
 
     /**
      * Afficher le mail
-     * @return void
+     * @return string|null
      */
-    public function getEmail() : ?array
+    public function getEmail() : ?string
     {
         if (!$this->isAuthenticatedUser()) {
             return null;
@@ -64,9 +64,9 @@ class UserSession{
 
     /**
      * Afficher le prénom
-     * @return void
+     * @return string|null
      */
-    public function getFirstName() : ?array
+    public function getFirstName() : ?string
     {
         //if (!$this->isAuthenticated()) = si le user n'est pas connècté, alors ne rien renvoyé  
         if (!$this->isAuthenticatedUser()) {
@@ -76,10 +76,13 @@ class UserSession{
         return $_SESSION['user']['first_name'];
     }
 
-
-    //afficher le nom
-    public function getLastName(){
-
+    /**
+     * afficher le nom
+     *
+     * @return string|null
+     */
+    public function getLastName() : ?string
+    {
         if (!$this->isAuthenticatedUser()) {
             return null;
         }
@@ -87,10 +90,13 @@ class UserSession{
         return $_SESSION['user']['last_name'];
     }
 
-
-
-    //afficher le id
-    public function getUserId(){
+    /**
+     * Afficher le id
+     *
+     * @return string|null
+     */
+    public function getUserId() : ?string
+    {
         if (!$this->isAuthenticatedUser()) {
             return null;
         }
@@ -98,11 +104,12 @@ class UserSession{
         return $_SESSION['user']['id'];
     }
 
-
-
-
-    //on verifie si la session user existe et qu'il y a du contenu dedans
-    public function isAuthenticatedUser(){
+    /**
+     * on verifie si la session user existe et qu'il y a du contenu dedans
+     * @return boolean
+     */
+    public function isAuthenticatedUser() : bool
+    {
         if(array_key_exists('user', $_SESSION)) {
             if (!empty($_SESSION['user']) && isset($_SESSION['user'])) {
                 return true;

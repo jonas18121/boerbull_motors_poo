@@ -4,14 +4,14 @@ require_once 'model/HomeModel.php';
 class HomeController{
 
     /** @var HomeModel */
-    private $homeModel;
+    private HomeModel $homeModel;
 
     public function __construct()
     {
         $this->homeModel = new HomeModel();
     }
 
-    public function getHome()
+    public function getHome() : void
     {
         $home = $this->homeModel->findHome();
         require_once 'www/templates/HomeView.phtml';
