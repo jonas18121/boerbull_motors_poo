@@ -4,11 +4,11 @@ require_once 'model/admin/users/AdminUsersModel.php';
 
 class AdminBookingController extends AdminController{
 
-    private $adminBookingModel;
+    private AdminBookingModel $adminBookingModel;
+    private AdminUsersModel $adminUsersModel;
 
     public function __construct()
     {
-        // instance de session et de model
         parent::__construct();
         //$this->adminBookingModel = new AdminBookingModel();
         $this->adminUsersModel = new AdminUsersModel();
@@ -16,25 +16,21 @@ class AdminBookingController extends AdminController{
 
     //en GET
     // afficher tous les rendez-vous
-    public function adminGetBooking(){
-
+    public function adminGetBooking() : void
+    {
         //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
-    
-        //appel de la fontion du model
         $adminFindBooking = $this->adminUsersModel->findBooking();
-
-        //appel de la vue
         require_once 'www/templates/admin/booking/get/AdminGetBookingView.phtml';
     }
 
 
     //en $_GET
     //supprimer un rendez-vous
-    public function adminDeleteBooking(){
-
+    public function adminDeleteBooking() : void
+    {
         //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
@@ -50,23 +46,21 @@ class AdminBookingController extends AdminController{
                     //// ajouter un RDV ////  
     //en $_GET
     //affiche le formulaire booking
-    public function adminBookingFormUser(){
-
+    public function adminBookingFormUser() : void
+    {
         //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
 
         $user = $this->adminUsersModel->GetUser($_GET['id']);
-
-        //appel de la vue
         require_once 'www/templates/admin/users/booking/AdminBookingUserView.php';
     }
 
     //en $_POST
     //ajoute un RDV pour un user
-    public function adminAddBookingUser(){
-
+    public function adminAddBookingUser() : void
+    {
         //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
@@ -84,11 +78,17 @@ class AdminBookingController extends AdminController{
 
                                     redirect("index.php?action=admin&action2=booking&action3=get");
                                 }
+                                redirect("index.php");
                             }
+                            redirect("index.php");
                         }
+                        redirect("index.php");
                     }
+                    redirect("index.php");
                 }
+                redirect("index.php");
             }
+            redirect("index.php");
         }
         redirect("index.php");
     }
