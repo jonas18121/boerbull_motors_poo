@@ -1,38 +1,48 @@
 <?php
-    // Démarrage du module PHP de gestion des sessions.
-
+declare(strict_types=1);
 
 class AdminSession{
 
-
-    public function __construct(){
-
+    public function __construct()
+    {
         // Démarrage du module PHP de gestion des sessions.
         /*si le statut de la session courante et que les sessions sont activées, mais qu'aucune n'existe. 
         on demarre une session*/
         if (session_status() === PHP_SESSION_NONE) {
             session_start();//demarre
         }
-
     } 
 
-    // Construction de la session admin.
-    public function adminCreate($id, $name, $email){
-
-        $_SESSION['admin']['id'] = $id;
+    /**
+     * Construction de la session admin.
+     *
+     * @param int $id
+     * @param string $name
+     * @param string $email
+     * @return void
+     */
+    public function adminCreate(int $id, string $name, string $email) : void
+    {
+        $_SESSION['admin']['id']   = $id;
         $_SESSION['admin']['name'] = $name;
         $_SESSION['admin']['mail'] = $email;
     }
 
-    //on detruit la session
-    public function AdminDestroy(){
-        // Destruction de l'ensemble de la session.
+    /**
+     * Destruction de l'ensemble de la session.
+     * @return void
+     */
+    public function AdminDestroy() : void
+    {
         unset($_SESSION['admin']);
     }
 
-    //afficher le mail
-    public function getAdminEmail(){
-
+    /**
+     * Afficher le mail
+     * @return string|null
+     */
+    public function getAdminEmail() : ?string
+    {
         if (!$this->isAuthenticatedAdmin()) {
             return null;
         }
@@ -40,10 +50,12 @@ class AdminSession{
         return $_SESSION['admin']['mail'];
     }
 
-
-    //afficher le nom
-    public function getAdminName(){
-
+    /**
+     * Afficher le prénom
+     * @return string|null
+     */
+    public function getAdminName() : ?string
+    {
         //if (!$this->isAuthenticated()) = si le admin n'est pas connècté, alors ne rien renvoyé  
         if (!$this->isAuthenticatedAdmin()) {
             return null;
@@ -52,9 +64,13 @@ class AdminSession{
         return $_SESSION['admin']['name'];
     }
 
-
-    //afficher le id
-    public function getAdminId(){
+    /**
+     * Afficher le id
+     *
+     * @return string|null
+     */
+    public function getAdminId() : ?string
+    {
 
         if (!$this->isAuthenticatedAdmin()) {
             return null;
@@ -63,11 +79,12 @@ class AdminSession{
         return $_SESSION['admin']['id'];
     }
 
-
-
-    //on verifie si la session user existe et qu'il y a du contenu dedans
-	public function isAuthenticatedAdmin(){
-
+    /**
+     * on verifie si la session user existe et qu'il y a du contenu dedans
+     * @return boolean
+     */
+	public function isAuthenticatedAdmin() : bool
+    {
         if(array_key_exists('admin', $_SESSION)) {
             if (!empty($_SESSION['admin']) && isset($_SESSION['admin'])) {
                 return true;
