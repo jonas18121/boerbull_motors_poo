@@ -237,7 +237,7 @@ h3{
 
 /* ********* F O R M ***************** */
 
-input[type=text],input[type=password], input[type=submit], textarea{
+input[type=text],input[type=password], input[type=submit], textarea, .cancel{
     width: 100%;
     padding: 1rem;
     margin: 1rem auto;
@@ -251,7 +251,7 @@ textarea{
     resize: vertical;
 }
 
-input[type=submit]{
+input[type=submit], .cancel{
     background-color: #f6dc12;
     color: white;
     border: none;
@@ -439,11 +439,11 @@ footer{
     }
 
     form{
-        width: 80%;
+        /* width: 80%; */
         margin: auto;
         text-align: left;
     }
     input[type=text],input[type=password], input[type=submit], textarea{
-        width: 80%;
+        /* width: 80%; */
     }
 }  
