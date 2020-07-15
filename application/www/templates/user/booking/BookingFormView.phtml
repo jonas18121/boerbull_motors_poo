@@ -25,8 +25,9 @@
         <!-- onsubmit permet d'afficher un message à l'ulisateur après avoir appuyer sur le boutton submit,
             quand tous les champs sont remplis  -->
         <form action="index.php?action=user&action2=booking" method="post" onsubmit="bokingConfirme()">
-            <fieldset>
-                <legend>Location de voitures</legend>
+            <!-- <fieldset> -->
+                <!-- <legend>Location de voitures</legend> -->
+                <h4>Location de voitures</h4>
                 <div>
                     <!-- récupère le user_id  -->
                     <input type="hidden" name="user_i" value="<?= htmlspecialchars(htmlentities($_SESSION['user']['id'])) ?>">
@@ -45,13 +46,13 @@
 
                 <div>
                     <label for="datetimepicker">Date de début</label>
-                    <input type="text" name="datetimepicker" id="datetimepicker" placeholder="20.12.2019 09:00" required>
+                    <input type="text" name="datetimepicker" id="datetimepicker" placeholder="20.12.2020 09:00" required>
                 </div>
 
                 <div>
                     <small>Indiquez la date de fin , qui aura lieu 3 jours après la date de début</small><br>
-                    <label for="datetimepicker2">Date de fin</label>
-                    <input type="text" name="datetimepicker2" id="datetimepicker" placeholder="30.12.2019 14:00" required>
+                    <label for="datetimepicker">Date de fin</label>
+                    <input type="text" name="datetimepicker" id="datetimepicker" placeholder="30.12.2020 14:00" required>
                 </div>
 
                 <div>
@@ -70,7 +71,7 @@
                 </div>
 
                 <p class="prixTTC">Prix <?= $prix_total_TTC ?> € pour 3 jours</p>
-            </fieldset>
+            <!-- </fieldset> -->
 
             <div>
                 <input type="submit" value="Reserver" class="myValid">
