@@ -367,7 +367,6 @@ footer{
     }
 
 
-
     /* /////////// H E A D E R ////////////// */
     
     
@@ -437,5 +436,14 @@ footer{
     .divForm{
         width: 50%;
         margin: 1rem auto;
+    }
+
+    form{
+        width: 80%;
+        margin: auto;
+        text-align: left;
+    }
+    input[type=text],input[type=password], input[type=submit], textarea{
+        width: 80%;
     }
 }  
