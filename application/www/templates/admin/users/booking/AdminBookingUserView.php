@@ -6,6 +6,7 @@
     
     <h2>Ajouter un rendez-vous pour <?= htmlspecialchars(utf8_encode($user['first_name'])) . ' ' . htmlspecialchars(utf8_encode($user['last_name'])) ?></h2>
 
+    <div class='divForm'>
     <form action="index.php?action=admin&action2=booking&action3=bookingAdd" method="post">
 
         <div>
@@ -50,6 +51,7 @@
             <input type="submit" value="Enregistrer" class="myValid">
         </div>    
     </form>
+    </div>
     
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"

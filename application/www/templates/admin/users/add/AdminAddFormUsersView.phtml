@@ -5,6 +5,7 @@
 <section class='sectionUniversel'>
     <h2>Ajouter un user</h2>
 
+    <div class='divForm'>
     <form action="index.php?action=admin&action2=users&action3=add" method="post">
         <div>
             <label for='last_name'>Nom : </label>
@@ -34,6 +35,7 @@
             <input type="submit" value="Enregistrer" class="myValid">
         </div>    
     </form>
+    </div>
 </section>
 <!-- fermer la tamporisation de sortie et le mettre dans une variable -->
 <?php $content = ob_get_clean(); ?>
