@@ -102,7 +102,8 @@ class UserController{
                     redirect('index.php?action=user&action2=loginForm'); 
                 }
             }else{
-                redirect('index.php?action=user&action2=loginForm'); 
+                throw new PDOException('Le mot de passe est incorrect');
+                //redirect('index.php?action=user&action2=loginForm'); 
             }
         }
         redirect('index.php?action=user&action2=loginForm'); 
@@ -134,7 +135,7 @@ class UserController{
         }
         $this->userModel->deleteSelfUser($_GET['id']);
         $this->userSession->userDestroy();//on detruit la session de user
-        redirect("index.php");//on redirectionne vers l'accueil
+        redirect("index.php?action=user&action2=registerForm");//on redirectionne vers la page d' inscrition
     }
 
 

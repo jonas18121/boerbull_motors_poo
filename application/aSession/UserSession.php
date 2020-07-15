@@ -93,9 +93,9 @@ class UserSession{
     /**
      * Afficher le id
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getUserId() : ?string
+    public function getUserId() : ?int
     {
         if (!$this->isAuthenticatedUser()) {
             return null;

@@ -94,7 +94,7 @@ class AdminController{
     public function  adminLogout()
     {
         $this->adminSession->Admindestroy();
-        redirect('index.php');
+        redirect('index.php?action=user&action2=loginForm');
     }
 
 
@@ -110,6 +110,6 @@ class AdminController{
         }
         $this->adminModel->deleteSelfAdmin($_GET['id']);
         $this->adminSession->AdminDestroy();
-        redirect("index.php");
+        redirect("index.php?action=user&action2=loginForm");
     }
 }

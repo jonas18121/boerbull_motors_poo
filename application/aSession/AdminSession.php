@@ -67,9 +67,9 @@ class AdminSession{
     /**
      * Afficher le id
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getAdminId() : ?string
+    public function getAdminId() : ?int
     {
 
         if (!$this->isAuthenticatedAdmin()) {
