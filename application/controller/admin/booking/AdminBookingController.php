@@ -1,10 +1,15 @@
 <?php
+declare(strict_types=1);
+
 require_once 'model/admin/booking/AdminBookingModel.php';
 require_once 'model/admin/users/AdminUsersModel.php';
 
 class AdminBookingController extends AdminController{
 
+    /** @var AdminBookingModel */
     private AdminBookingModel $adminBookingModel;
+
+    /** @var AdminUsersModel */
     private AdminUsersModel $adminUsersModel;
 
     public function __construct()
@@ -14,8 +19,11 @@ class AdminBookingController extends AdminController{
         $this->adminUsersModel = new AdminUsersModel();
     }
 
-    //en GET
-    // afficher tous les rendez-vous
+    /**
+     * En GET, afficher tous les rendez-vous
+     *
+     * @return void
+     */
     public function adminGetBooking() : void
     {
         //si le admin n'est pas connecter au le renvois a l'accueil
@@ -26,9 +34,11 @@ class AdminBookingController extends AdminController{
         require_once 'www/templates/admin/booking/get/AdminGetBookingView.phtml';
     }
 
-
-    //en $_GET
-    //supprimer un rendez-vous
+    /**
+     * En $_GET, supprimer un rendez-vous
+     *
+     * @return void
+     */
     public function adminDeleteBooking() : void
     {
         //si le admin n'est pas connecter au le renvois a l'accueil
@@ -39,13 +49,15 @@ class AdminBookingController extends AdminController{
         // Avec $_GET, on recupère la valeur de l'id qui est dans l'url 
         $this->adminUsersModel->deleteBookingAdmin($_GET['id']);
 
-        //on redirectionne l'admin vers la liste des voitures
         redirect("index.php?action=admin&action2=booking&action3=get");
     }
 
-                    //// ajouter un RDV ////  
-    //en $_GET
-    //affiche le formulaire booking
+                    //// ajouter un RDV //// 
+    /**
+     * En $_GET, affiche le formulaire booking
+     *
+     * @return void
+     */
     public function adminBookingFormUser() : void
     {
         //si le admin n'est pas connecter au le renvois a l'accueil
@@ -57,11 +69,13 @@ class AdminBookingController extends AdminController{
         require_once 'www/templates/admin/users/booking/AdminBookingUserView.php';
     }
 
-    //en $_POST
-    //ajoute un RDV pour un user
+    /**
+     * En $_POST, ajoute un RDV pour un user
+     *
+     * @return void
+     */
     public function adminAddBookingUser() : void
     {
-        //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
