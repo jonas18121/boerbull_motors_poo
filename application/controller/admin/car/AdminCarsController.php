@@ -1,71 +1,66 @@
 <?php
+declare(strict_types=1);
 
-//appel du model
 require_once 'model/admin/car/AdminCarsModel.php';
 
 class AdminCarsController extends AdminController{
 
-    private $adminCarsModel;
+    /** @var AdminCarsModel */
+    private AdminCarsModel $adminCarsModel;
 
     public function __construct()
     {
-        // instance de session et de model
         parent::__construct();
         $this->adminCarsModel = new AdminCarsModel();
     }
 
 
-            //// Afficher ////    
-    //en GET
-    public function adminGetCars(){
-
+            //// Afficher //// 
+    /**
+     * En GET, afficher une voiture
+     *
+     * @return void
+     */
+    public function adminGetCars() : void
+    {
         //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
     
-        //appel de la fontion du model
         $adminGetCars = $this->adminCarsModel->GetCars();
-
-        //appel de la vue
         require_once 'www/templates/admin/car/get/AdminGetCarsView.phtml';
     }
 
 
-
-
-
-
-
             //// Ajouter ////
-    //en GET
-    //affiche le formulaire d'ajout de voiture
-    public function adminAddFormCars(){
-
-        //si le admin n'est pas connecter au le renvois a l'accueil
+    /**
+     * En GET, affiche le formulaire d'ajout de voiture
+     *
+     * @return void
+     */
+    public function adminAddFormCars() : void
+    {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
 
         // cette fonction permet de choisir une categorie pour les voitures qu'on va ajouter dans la base de donnée
         $category = $this->adminCarsModel->category();
-
-        //appel de la vue
         require_once 'www/templates/admin/car/add/AdminAddCarsView.phtml';
     } 
 
-
-    //en POST
-    //admin ajoute une voiture
-    public function adminAddCars(){
-
-        //si le admin n'est pas connecter au le renvois a l'accueil
+    /**
+     * En POST, admin ajoute une voiture
+     *
+     * @return void
+     */
+    public function adminAddCars() : void
+    {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
 
-        
-        //controle de formulaire en php
         if(!empty($_POST)){ 
             if(array_key_exists('marque',$_POST) && isset($_POST['marque']) && strlen($_POST['marque']) >= 2 && strlen($_POST['marque']) <= 25){ 
 
@@ -98,56 +93,60 @@ class AdminCarsController extends AdminController{
                                                                 //on redirectionne l'admin vers la liste des users
                                                                 redirect("index.php?action=admin&action2=car&action3=get");
                                                             }
+                                                            redirect("index.php?action=admin&action2=car&action3=addForm");
                                                         }
+                                                        redirect("index.php?action=admin&action2=car&action3=addForm");
                                                     }
+                                                    redirect("index.php?action=admin&action2=car&action3=addForm");
                                                 }
+                                                redirect("index.php?action=admin&action2=car&action3=addForm");
                                             }
+                                            redirect("index.php?action=admin&action2=car&action3=addForm");
                                         }
+                                        redirect("index.php?action=admin&action2=car&action3=addForm");
                                     }
+                                    redirect("index.php?action=admin&action2=car&action3=addForm");
                                 }
+                                redirect("index.php?action=admin&action2=car&action3=addForm");
                             }
+                            redirect("index.php?action=admin&action2=car&action3=addForm");
                         }
+                        redirect("index.php?action=admin&action2=car&action3=addForm");
                     }
+                    redirect("index.php?action=admin&action2=car&action3=addForm");
                 }
+                redirect("index.php?action=admin&action2=car&action3=addForm");
             }
+            redirect("index.php?action=admin&action2=car&action3=addForm");
         }
         redirect("index.php?action=admin&action2=car&action3=addForm");
     }
 
-
-
-
-
-
-
-
-
-
-                //// Modifier ////    
-    //en GET$
-    //affiche le formulaire de modification de car
-    public function adminEditFormCars(){
-
-        //si le admin n'est pas connecter au le renvois a l'accueil
+                //// Modifier ////  
+    /**
+     * En GET, affiche le formulaire de modification de car
+     *
+     * @return void
+     */
+    public function adminEditFormCars() : void
+    {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
 
         // Avec $_GET, on recupère la valeur de l'id qui est dans l'url 
         $adminEditFormCars = $this->adminCarsModel->editFormCars($_GET['id']);
-
-        //appel de la vue
         require_once 'www/templates/admin/car/edit/AdminEditCarsView.phtml';
     } 
 
 
-
-
-    //en POST
-    //admin modifie une voiture
-    public function adminEditCars(){
-
-        //si le admin n'est pas connecter au le renvois a l'accueil
+    /**
+     * En POST, admin modifie une voiture
+     *
+     * @return void
+     */
+    public function adminEditCars() : void
+    {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
@@ -172,34 +171,45 @@ class AdminCarsController extends AdminController{
                                                                 //on redirectionne l'admin vers la liste des users
                                                                 redirect("index.php?action=admin&action2=car&action3=get");
                                                             }
+                                                            redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                                                         }
+                                                        redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                                                     }
+                                                    redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                                                 }
+                                                redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                                             }
+                                            redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                                         }
+                                        redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                                     }
+                                    redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                                 }
+                                redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                             }
+                            redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                         }
+                        redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                     }
+                    redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
                 }
                 redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
             }
+            redirect('index.php?action=admin&action2=car&action3=editForm&id=' . $_POST['id']);
         }
         //on redirectionne l'admin vers la liste des users
         redirect("index.php?action=admin&action2=car&action3=get");
     }  
-    
-    
-
 
 
                 //// Supprimer ////
-    //en $_GET
-    //supprimer une voiture
-    public function adminDeleteCars(){
-
-        //si le admin n'est pas connecter au le renvois a l'accueil
+    /**
+     * En $_GET, supprimer une voiture
+     *
+     * @return void
+     */
+    public function adminDeleteCars() : void
+    {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
@@ -207,7 +217,6 @@ class AdminCarsController extends AdminController{
         // Avec $_GET, on recupère la valeur de l'id qui est dans l'url 
         $this->adminCarsModel->deleteCar($_GET['id']);
 
-        //on redirectionne l'admin vers la liste des voitures
         redirect("index.php?action=admin&action2=car&action3=get");
     }
 }
