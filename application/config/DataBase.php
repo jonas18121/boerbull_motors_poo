@@ -1,19 +1,19 @@
 <?php
 
 
-class Database{
-
-
+class Database
+{
     private static $instance = null;
 
     /** on ce connecte à la base de donnée
      * 
      * @return PDO
      */
-    public static function dbConnect(){
-        $dsn = 'mysql:host=localhost;dbname=boerbull_motors';
-        $user= 'root';
-        $password = '';
+    public static function dbConnect()
+    {
+        $dsn        = 'mysql:host=localhost;dbname=boerbull_motors';
+        $user       = 'root';
+        $password   = '';
 
         try {
             // design pattern singleton, pour qu'une seul connexion à la bdd, suffise pour toutes les requètes SQL qu'on va faire dans le site

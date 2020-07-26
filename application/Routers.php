@@ -45,15 +45,15 @@ class Routers{
 
     public function __construct()
     {
-        $this->HomeController =         new HomeController();
-        $this->PanierController =       new PanierController();
-        $this->carController =          new CarController();
-        $this->tarifController =        new TarifController();
-        $this->userController =         new UserController();
-        $this->adminController =        new AdminController();
-        $this->adminUsersController =   new AdminUsersController();
-        $this->adminCarsController =    new AdminCarsController();
-        $this->adminBookingController = new AdminBookingController();
+        $this->HomeController           = new HomeController();
+        $this->PanierController         = new PanierController();
+        $this->carController            = new CarController();
+        $this->tarifController          = new TarifController();
+        $this->userController           = new UserController();
+        $this->adminController          = new AdminController();
+        $this->adminUsersController     = new AdminUsersController();
+        $this->adminCarsController      = new AdminCarsController();
+        $this->adminBookingController   = new AdminBookingController();
     }
 
     public function starter()
@@ -61,7 +61,6 @@ class Routers{
         /*
         récupéré la methode 
         */
-        
     }
 
 
