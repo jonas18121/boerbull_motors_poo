@@ -47,7 +47,7 @@ class AdminBookingController extends AdminController{
         }
 
         // Avec $_GET, on recupère la valeur de l'id qui est dans l'url 
-        $this->adminUsersModel->deleteBookingAdmin($_GET['id']);
+        $this->adminUsersModel->deleteBookingAdmin((int) $_GET['id']);
 
         redirect("index.php?action=admin&action2=booking&action3=get");
     }
@@ -65,7 +65,7 @@ class AdminBookingController extends AdminController{
             redirect("index.php");
         }
 
-        $user = $this->adminUsersModel->GetUser($_GET['id']);
+        $user = $this->adminUsersModel->GetUser((int) $_GET['id']);
         require_once 'www/templates/admin/users/booking/AdminBookingUserView.php';
     }
 
@@ -88,7 +88,7 @@ class AdminBookingController extends AdminController{
                             if(array_key_exists('booking_time_fin',$_POST) && isset($_POST['booking_time_fin'])){ 
                                 if(array_key_exists('number_of_seats',$_POST) && isset($_POST['number_of_seats']) && ctype_digit($_POST['number_of_seats'])){ 
                 
-                                    $this->adminUsersModel->adminAddBooking($_POST['user_i'], $_POST['booking_date_debut'], $_POST['booking_time_debut'], $_POST['booking_date_fin'], $_POST['booking_time_fin'], $_POST['number_of_seats']);
+                                    $this->adminUsersModel->adminAddBooking((int) $_POST['user_i'], $_POST['booking_date_debut'], $_POST['booking_time_debut'], $_POST['booking_date_fin'], $_POST['booking_time_fin'], (int) $_POST['number_of_seats']);
 
                                     redirect("index.php?action=admin&action2=booking&action3=get");
                                 }
