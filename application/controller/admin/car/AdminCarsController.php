@@ -87,11 +87,10 @@ class AdminCarsController extends AdminController{
                                                         if(array_key_exists('id_category',$_POST) && isset($_POST['id_category']) && ctype_digit($_POST['id_category']) && strlen($_POST['id_category']) === 1){
 
                                                             if(array_key_exists('image_url',$_POST) && isset($_POST['image_url'])){
+                                                                
+                                                                $this->adminCarsModel->addCars($_POST['marque'], $_POST['modele'], (int) $_POST['annee'], (int) $_POST['conso'], $_POST['color'], (int) $_POST['prix_trois_jours'], (int) $_POST['puissance'], $_POST['moteur'], $_POST['carburant'], (int) $_POST['cent'], (int) $_POST['nombre_de_place'], (int) $_POST['id_category'], $_POST['image_url']);
 
-                                                                $this->adminCarsModel->addCars($_POST['marque'], $_POST['modele'], $_POST['annee'], $_POST['conso'], $_POST['color'], $_POST['prix_trois_jours'], $_POST['puissance'], $_POST['moteur'], $_POST['carburant'], $_POST['cent'], $_POST['nombre_de_place'], $_POST['id_category'], $_POST['image_url']);
-
-                                                                //on redirectionne l'admin vers la liste des users
-                                                                redirect("index.php?action=admin&action2=car&action3=get");
+                                                                redirect("index.php?action=admin&action2=car&action3=get");//on redirectionne l'admin vers la liste des users
                                                             }
                                                             redirect("index.php?action=admin&action2=car&action3=addForm");
                                                         }
@@ -135,7 +134,7 @@ class AdminCarsController extends AdminController{
         }
 
         // Avec $_GET, on recupère la valeur de l'id qui est dans l'url 
-        $adminEditFormCars = $this->adminCarsModel->editFormCars($_GET['id']);
+        $adminEditFormCars = $this->adminCarsModel->editFormCars((int) $_GET['id']);
         require_once 'www/templates/admin/car/edit/AdminEditCarsView.phtml';
     } 
 
@@ -166,7 +165,7 @@ class AdminCarsController extends AdminController{
                                                         if(array_key_exists('nombre_de_place',$_POST) && isset($_POST['nombre_de_place']) && ctype_digit($_POST['nombre_de_place']) && strlen($_POST['nombre_de_place']) === 1){  
                                                             if(array_key_exists('id_category',$_POST) && isset($_POST['id_category']) && ctype_digit($_POST['id_category']) && strlen($_POST['id_category']) === 1){ 
                                                         
-                                                                $this->adminCarsModel->editCars($_POST['marque'], $_POST['modele'], $_POST['annee'], $_POST['conso'], $_POST['color'], $_POST['prix_trois_jours'], $_POST['puissance'], $_POST['moteur'], $_POST['carburant'], $_POST['cent'], $_POST['nombre_de_place'], $_POST['id_category'], $_POST['id']);
+                                                                $this->adminCarsModel->editCars($_POST['marque'], $_POST['modele'], (int) $_POST['annee'], (int) $_POST['conso'], $_POST['color'], (int) $_POST['prix_trois_jours'], (int) $_POST['puissance'], $_POST['moteur'], $_POST['carburant'], (int)$_POST['cent'], (int)$_POST['nombre_de_place'], (int)$_POST['id_category'], (int) $_POST['id']);
 
                                                                 //on redirectionne l'admin vers la liste des users
                                                                 redirect("index.php?action=admin&action2=car&action3=get");
@@ -215,7 +214,7 @@ class AdminCarsController extends AdminController{
         }
 
         // Avec $_GET, on recupère la valeur de l'id qui est dans l'url 
-        $this->adminCarsModel->deleteCar($_GET['id']);
+        $this->adminCarsModel->deleteCar((int) $_GET['id']);
 
         redirect("index.php?action=admin&action2=car&action3=get");
     }
