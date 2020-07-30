@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 require_once 'model/admin/users/AdminUsersModel.php';
 
 class AdminUsersController extends AdminController{
@@ -85,7 +87,7 @@ class AdminUsersController extends AdminController{
             redirect("index.php");
         }
 
-        $adminEditFormUsers = $this->adminUsersModel->editFormUsers($_GET['id']);
+        $adminEditFormUsers = $this->adminUsersModel->editFormUsers((int) $_GET['id']);
         require_once 'www/templates/admin/users/edit/AdminEditFormUsersView.phtml';
     } 
 
@@ -108,7 +110,7 @@ class AdminUsersController extends AdminController{
                                     if(array_key_exists('mail',$_POST) && isset($_POST['mail'])){
                                         if(preg_match("/^[a-zA-Z][a-zA-Z0-9._-]{1,19}@[a-z]{4,7}\.[a-z]{2,3}$/", $_POST['mail'])){
 
-                                            $this->adminUsersModel->editUsers($_POST['first_name'], $_POST['last_name'], $_POST['mail'], $_POST['password'], $_POST['id']);
+                                            $this->adminUsersModel->editUsers($_POST['first_name'], $_POST['last_name'], $_POST['mail'], $_POST['password'], (int) $_POST['id']);
                                             redirect("index.php?action=admin&action2=users&action3=get");
                                         }
                                         redirect('index.php?action=admin&action2=users&action3=editForm&id=' . $_POST['id']);
@@ -138,7 +140,7 @@ class AdminUsersController extends AdminController{
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         } 
-        $this->adminUsersModel->deleteUser($_GET['id']);
+        $this->adminUsersModel->deleteUser((int) $_GET['id']);
         redirect("index.php?action=admin&action2=users&action3=get");
     }
 }
