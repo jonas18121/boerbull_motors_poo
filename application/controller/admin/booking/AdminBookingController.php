@@ -1,13 +1,9 @@
 <?php
 declare(strict_types=1);
 
-require_once 'model/admin/booking/AdminBookingModel.php';
 require_once 'model/admin/users/AdminUsersModel.php';
 
 class AdminBookingController extends AdminController{
-
-    /** @var AdminBookingModel */
-    private AdminBookingModel $adminBookingModel;
 
     /** @var AdminUsersModel */
     private AdminUsersModel $adminUsersModel;
@@ -15,7 +11,6 @@ class AdminBookingController extends AdminController{
     public function __construct()
     {
         parent::__construct();
-        //$this->adminBookingModel = new AdminBookingModel();
         $this->adminUsersModel = new AdminUsersModel();
     }
 
