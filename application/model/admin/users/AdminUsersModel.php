@@ -50,11 +50,10 @@ class AdminUsersModel extends AdminModel{
 
             $user = $this->pdo->prepare($sql);
             $user = $user->execute([
-
-                ':first_name' => $first_name, 
-                ':last_name' => $last_name, 
-                ':mail' => $email, 
-                ':password' => $passwordHashed
+                ':first_name'   => $first_name, 
+                ':last_name'    => $last_name, 
+                ':mail'         => $email, 
+                ':password'     => $passwordHashed
             ]);
         }
     }
@@ -100,12 +99,11 @@ class AdminUsersModel extends AdminModel{
 
         $editUsers = $this->pdo->prepare($sql);
         $editUsers = $editUsers->execute([
-
-            ':id' => $id,
-            ':first_name' => $first_name, 
-            ':last_name' => $last_name, 
-            ':mail' => $email,
-            ':password' => $passwordHashed
+            ':id'           => $id,
+            ':first_name'   => $first_name, 
+            ':last_name'    => $last_name, 
+            ':mail'         => $email,
+            ':password'     => $passwordHashed
         ]);
     }
 

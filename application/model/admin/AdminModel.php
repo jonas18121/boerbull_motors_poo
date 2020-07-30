@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 require_once 'model/Model.php';
 
 class AdminModel extends Model{
@@ -32,8 +34,8 @@ class AdminModel extends Model{
 
             $admin = $this->pdo->prepare($sql);
             $admin = $admin->execute([
-                ':name' => $name, 
-                ':mail' => $email, 
+                ':name'     => $name, 
+                ':mail'     => $email, 
                 ':password' => $passwordHashed
             ]); 
         }
