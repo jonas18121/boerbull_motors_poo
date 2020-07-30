@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /** afficher la vue a propos */
 function getAPropos() : void

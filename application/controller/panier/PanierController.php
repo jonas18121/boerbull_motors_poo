@@ -1,7 +1,7 @@
 <?php
 
 require_once 'model/panier/PanierModel.php';
-require_once 'model/oneCar/OneCarModel.php';
+require_once 'model/car/CarModel.php';
 require_once 'library/Tools.php';
 require_once 'aSession/AdminSession.php';
 require_once 'aSession/UserSession.php';
@@ -34,7 +34,7 @@ class PanierController{
             redirect("index.php?action=user&action2=loginForm");
         }
     
-        $this->panierModel->addPanier($_GET['id']);
+        $this->panierModel->addPanier((int) $_GET['id']);
         require_once 'www/templates/panier/PanierView.phtml';
     }
 
@@ -53,7 +53,7 @@ class PanierController{
     /** effacer un article */
     public function deleteOneArticle() : void
     {
-        $this->panierModel->deleteOne($_GET['id']);
+        $this->panierModel->deleteOne((int) $_GET['id']);
         $this->panierOpen();
     } 
 }
