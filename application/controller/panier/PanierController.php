@@ -1,12 +1,11 @@
 <?php
+declare(strict_types=1);
 
 require_once 'model/panier/PanierModel.php';
 require_once 'model/car/CarModel.php';
 require_once 'library/Tools.php';
 require_once 'aSession/AdminSession.php';
 require_once 'aSession/UserSession.php';
-
-
 
 class PanierController{
 
@@ -20,7 +19,6 @@ class PanierController{
      */
     private PanierModel $panierModel;
 
-    
     public function __construct()
     {
         $this->userSession = new UserSession();
