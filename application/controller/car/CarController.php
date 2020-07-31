@@ -13,14 +13,22 @@ class CarController{
         $this->carModel = new CarModel();
     }
 
-    /** afficher une voiture */
+    /** 
+     * afficher une voiture 
+     * 
+     * @return void
+     */
     public function getOneCar() : void
     {
         $oneCar = $this->carModel->OneCar((int) $_GET['id']);
         require_once 'www/templates/oneCar/OneCarView.phtml';
     }
 
-    /** selectionner des voitures par categorie  */ 
+    /** 
+     * selectionner des voitures par categorie
+     * 
+     * @return void  
+     */ 
     public function getOneCategory() : void
     {
         $categories = $this->carModel->findCategory((int) $_GET['id_category']);

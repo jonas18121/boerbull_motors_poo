@@ -1,6 +1,7 @@
 <?php
-require_once 'model/Model.php';
+declare(strict_types=1);
 
+require_once 'model/Model.php';
 
 class panierModel extends Model{
 
@@ -12,7 +13,6 @@ class panierModel extends Model{
         }
 
         if (!isset($_SESSION['panier'])){
-            
             $_SESSION['panier'] = array();
         }
         parent::__construct();
@@ -21,7 +21,8 @@ class panierModel extends Model{
 
 
 
-    /** compter le nombre d'élément présent dans le panier
+    /** 
+     * compter le nombre d'élément présent dans le panier
      * @return int|float
     */
     public function countt(){
@@ -64,12 +65,13 @@ class panierModel extends Model{
 
 
 
-    /** calculer la TVA qui s'ajoutera au prix hors taxes 
+    /** 
+     * calculer la TVA qui s'ajoutera au prix hors taxes 
      * 
      * @param array $session
-     * @return int $products OR $total
+     * @return float $products OR $total
     */
-    public function TVA(array $session) : int 
+    public function TVA(array $session) : float 
     {
         $total = 0;
 
@@ -98,12 +100,13 @@ class panierModel extends Model{
 
 
 
-    /** calculer le prix TTC 
+    /** 
+     * calculer le prix TTC 
      * 
      * @param array $session
-     * @return int $products OR $total
+     * @return float $products OR $total
     */
-    public function prixTTC(array $session) : int 
+    public function prixTTC(array $session) : float 
     {
         $total = 0;
 
@@ -130,20 +133,14 @@ class panierModel extends Model{
     }
 
 
-
-
-
-
-
-
-
-    /** ajouter un element au panier
+    /** 
+     * ajouter un element au panier
      * 
      * @param int $product_id
      * @return void
      */
-    public function addPanier(int $product_id) : void {
-
+    public function addPanier(int $product_id) : void 
+    {
         if(isset($product_id)){
 
             $sql = 'SELECT id FROM car WHERE id = :id';
@@ -165,13 +162,8 @@ class panierModel extends Model{
         redirect("index.php?action=panierView");
     }
 
-
-
-
-
-
-
-    /** effacer un élément du panier
+    /** 
+     * effacer un élément du panier
      * 
      * @param int $product_id
      * @return void
@@ -181,9 +173,6 @@ class panierModel extends Model{
         unset($_SESSION['panier'][$product_id]);
     }
 
-
-
-
     /** effacer tous les éléments du panier
      * 
      * @return void
@@ -192,10 +181,6 @@ class panierModel extends Model{
     {
         unset($_SESSION['panier']);
     }
-
-
-
-
 
     /** selectonner les voitures qui sont dans le panier
      * 
