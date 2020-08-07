@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once 'model/admin/users/AdminUsersModel.php';
@@ -6,7 +7,7 @@ require_once 'model/admin/users/AdminUsersModel.php';
 class AdminUsersController extends AdminController{
 
     /** @var AdminUsersModel */
-    private $adminUsersModel;
+    private AdminUsersModel $adminUsersModel;
 
     public function __construct()
     {
@@ -17,9 +18,12 @@ class AdminUsersController extends AdminController{
 
 
             //// Afficher //// 
-    //en GET
-    /* affiche tous les users */
-    public function adminGetUsers()
+    /**
+     * en GET, affiche tous les users
+     *
+     * @return void
+     */
+    public function adminGetUsers() : void
     {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
@@ -34,9 +38,12 @@ class AdminUsersController extends AdminController{
 
 
             //// Ajouter ////
-    //en GET
-    //affiche le formulaire d'ajout de user
-    public function adminAddFormUsers()
+    /**
+     * en GET, affiche le formulaire d'ajout de user
+     *
+     * @return void
+     */
+    public function adminAddFormUsers() : void
     {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
@@ -45,9 +52,12 @@ class AdminUsersController extends AdminController{
     } 
 
 
-    //en POST
-    //admin ajoute un user
-    public function adminAddUsers()
+    /**
+     * en POST, admin ajoute un user
+     *
+     * @return void
+     */
+    public function adminAddUsers() : void
     {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
@@ -65,12 +75,19 @@ class AdminUsersController extends AdminController{
                                         $adminAddUsers =  $this->adminUsersModel->addUsers($_POST['first_name'], $_POST['last_name'], $_POST['mail'], $_POST['password']);
                                         redirect("index.php?action=admin&action2=users&action3=get");
                                     }
+                                    redirect("index.php?action=admin&action2=users&action3=addForm");
                                 }
+                                redirect("index.php?action=admin&action2=users&action3=addForm");
                             }
+                            redirect("index.php?action=admin&action2=users&action3=addForm");
                         }
+                        redirect("index.php?action=admin&action2=users&action3=addForm");
                     }
+                    redirect("index.php?action=admin&action2=users&action3=addForm");
                 }
+                redirect("index.php?action=admin&action2=users&action3=addForm");
             }
+            redirect("index.php?action=admin&action2=users&action3=addForm");
         }
         redirect("index.php?action=admin&action2=users&action3=addForm");
     }
@@ -79,9 +96,12 @@ class AdminUsersController extends AdminController{
 
 
                 //// Modifier ////   
-    //en GET$
-    //affiche le formulaire de modification de user
-    public function adminEditFormUsers()
+    /**
+     * en $_GET, affiche le formulaire de modification de user
+     *
+     * @return void
+     */
+    public function adminEditFormUsers() : void
     {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
@@ -92,9 +112,12 @@ class AdminUsersController extends AdminController{
     } 
 
 
-    //en POST
-    //admin modifie un user
-    public function adminEditUsers()
+    /**
+     * en POST, admin modifie un user
+     *
+     * @return void
+     */
+    public function adminEditUsers() : void
     {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
@@ -127,15 +150,19 @@ class AdminUsersController extends AdminController{
                 }
                 redirect('index.php?action=admin&action2=users&action3=editForm&id=' . $_POST['id']);
             }
+            redirect('index.php?action=admin&action2=users&action3=editForm&id=' . $_POST['id']);
         }
         redirect("index.php?action=admin&action2=users&action3=get");
     }
 
 
                 //// Supprimer ////
-    //en $_GET
-    //supprimer un user
-    public function adminDeleteUsers()
+    /**
+     * en $_GET, supprimer un user
+     *
+     * @return void
+     */
+    public function adminDeleteUsers() : void
     {
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
