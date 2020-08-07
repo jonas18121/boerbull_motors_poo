@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 require_once 'model/user/UserModel.php';
 require_once 'model/panier/PanierModel.php';
 require_once 'model/car/CarModel.php';
@@ -58,12 +61,19 @@ class UserController{
                                         //redirection à la page de connexion pour user 
                                         redirect('index.php?action=user&action2=loginForm');
                                     } 
+                                    redirect('index.php?action=user&action2=registerForm');
                                 }
+                                redirect('index.php?action=user&action2=registerForm');
                             }
+                            redirect('index.php?action=user&action2=registerForm');
                         }
+                        redirect('index.php?action=user&action2=registerForm');
                     }
+                    redirect('index.php?action=user&action2=registerForm');
                 }
+                redirect('index.php?action=user&action2=registerForm');
             } 
+            redirect('index.php?action=user&action2=registerForm');
         }
         redirect('index.php?action=user&action2=registerForm');
     }
@@ -91,7 +101,7 @@ class UserController{
                     {
                         $login = $this->userModel->loginUser($_POST['mail'], $_POST['password'] );//connection user
                     
-                        $this->userSession->create($login['id'], $login['first_name'], $login['last_name'], $login['mail']);//on crée la session
+                        $this->userSession->create((int)$login['id'], $login['first_name'], $login['last_name'], $login['mail']);//on crée la session
 
                         redirect('index.php');//redirection à la page d'accueil
 
@@ -105,6 +115,7 @@ class UserController{
                 throw new PDOException('Le mot de passe est incorrect');
                 //redirect('index.php?action=user&action2=loginForm'); 
             }
+            redirect('index.php?action=user&action2=loginForm');
         }
         redirect('index.php?action=user&action2=loginForm'); 
     }
@@ -133,7 +144,7 @@ class UserController{
         {
             redirect("index.php");
         }
-        $this->userModel->deleteSelfUser($_GET['id']);
+        $this->userModel->deleteSelfUser((int)$_GET['id']);
         $this->userSession->userDestroy();//on detruit la session de user
         redirect("index.php?action=user&action2=registerForm");//on redirectionne vers la page d' inscrition
     }
@@ -201,9 +212,13 @@ class UserController{
                                 $this->panierModel->deleteAll();
                                 redirect('index.php');
                             }
+                            redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
                         }
+                        redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
                     }
+                    redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
                 }
+                redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
             }
             redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
         }
@@ -227,7 +242,7 @@ class UserController{
         //pour éviter que la session de l'utilisateur en cours, ait accès au RDV des autres utilisateurs   
         if(isset($_GET['user_i']) && $_GET['user_i'] ===  $_SESSION['user']['id'] )
         {
-            $getBooking = $this->userModel->getBooking($_GET['user_i']);
+            $getBooking = $this->userModel->getBooking((int)$_GET['user_i']);
             require_once 'www/templates/user/booking/BookingView.phtml';
         }
         else
@@ -235,7 +250,7 @@ class UserController{
             // si $_GET['user_i'] est différent , 
             //on remet $_SESSION['user']['id'] dans $_GET['user_i'] pour afficher le bon resultat
             $_GET['user_i'] = $_SESSION['user']['id'];
-            $getBooking = $this->userModel->getBooking($_GET['user_i']);
+            $getBooking = $this->userModel->getBooking((int) $_GET['user_i']);
             require_once 'www/templates/user/booking/BookingView.phtml';
         }
     }
@@ -248,7 +263,7 @@ class UserController{
         if(!$this->userSession->isAuthenticatedUser()){
             redirect('index.php?action=user&action2=loginForm');
         }
-        $this->userModel->deleteBooking($_GET['id']);
+        $this->userModel->deleteBooking((int) $_GET['id']);
         redirect('index.php?action=user&action2=userRDV&user_i='. $this->userSession->getUserId());
     }
 }
