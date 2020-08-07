@@ -1,7 +1,7 @@
 <?php
-//model , gestion de la base de donnée
 
-//inclure la classe Model
+declare(strict_types=1);
+
 require_once 'model/Model.php';
 
 
@@ -13,7 +13,8 @@ class HomeModel extends Model{
     * 
     * @return array $home
     */
-    public function findHome() : array {
+    public function findHome() : array 
+    {
 
         $sql = "SELECT * FROM car INNER JOIN category ON category.id = car.id_category WHERE id_category LIMIT 5";
 
