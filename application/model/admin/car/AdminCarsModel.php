@@ -1,8 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 require_once 'model/admin/AdminModel.php';
-include_once 'library/Tools.php';
+require_once 'library/Tools.php';
 
 class AdminCarsModel extends AdminModel
 {
