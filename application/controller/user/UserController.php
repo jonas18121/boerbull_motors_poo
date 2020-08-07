@@ -34,16 +34,19 @@ class UserController{
 
     /////////// register ////////////
 
-    /** en $_GET
-     * afficher le formulaire d'inscription
+    /** en $_GET, afficher le formulaire d'inscription
+     * 
+     * @return void
      */
     public function userRegisterForm() : void
     {
         require_once 'www/templates/user/register/UserRegisterFormView.phtml';
     }
 
-    /** en $_POST
-     * Permettre l'inscription si les controlles sont bons
+    /** 
+     * en $_POST, Permettre l'inscription si les controlles sont bons
+     * 
+     * @return void
      */
     public function userRegister() : void
     {
@@ -81,16 +84,20 @@ class UserController{
 
     /////////// login ////////////
 
-     /** en $_GET
-      * afficher le formulaire de connection
+     /** 
+      * en $_GET, afficher le formulaire de connection
+      *
+      *  @return void
       */
     public function userLoginForm() : void
     {
         require_once 'www/templates/user/login/UserLoginFormView.phtml';
     }
 
-    /** en $_POST
-     * Permettre la connexion si les controlles sont bons
+    /** 
+     * en $_POST, Permettre la connexion si les controlles sont bons
+     * 
+     * @return void
      */
     public function userLogin() : void
     {
@@ -124,6 +131,8 @@ class UserController{
 
     /** en $_GET
      * deconnexion de l'utilisateur
+     * 
+     * @return void
      */
     public function userLougout() : void
     {
@@ -135,8 +144,9 @@ class UserController{
 
     /////////// delete ////////////
 
-    /** en $_GET
-     * l'utilisateur supprime son compte
+    /** en $_GET, l'utilisateur supprime son compte
+     * 
+     * @return void
      */
     public function userDeleteSelf() : void
     {
@@ -153,8 +163,9 @@ class UserController{
 
     /////////// bookingForm ////////////
 
-    /** en $_GET
-     * Afficher le formulaire de réservation
+    /** en $_GET, Afficher le formulaire de réservation
+     * 
+     * @return void
      */
     public function bookingFormView() : void
     {
@@ -175,8 +186,10 @@ class UserController{
         require_once 'www/templates/user/booking/BookingFormView.phtml';
     }
 
-    /** en POST
-     *  l'utilisateur fait une reservation
+    /** 
+     * en POST, l'utilisateur fait une reservation
+     * 
+     * @return void
      */
     public function userBookingForm() : void
     {
@@ -230,8 +243,10 @@ class UserController{
 
     /////////// booking ////////////
 
-    /** en $_GET
-     * afficher les RDV
+    /** 
+     * en $_GET, afficher les RDV
+     * 
+     * @return void
      */
     public function getRDV() : void
     {
@@ -255,8 +270,10 @@ class UserController{
         }
     }
 
-    /** en $_GET
-     * effacer un RDV
+    /** 
+     * en $_GET, effacer un RDV
+     * 
+     * @return void
      */
     public function deleteRDV() : void
     {
