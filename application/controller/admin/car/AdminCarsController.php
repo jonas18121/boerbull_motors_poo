@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once 'model/admin/car/AdminCarsModel.php';
@@ -23,7 +24,6 @@ class AdminCarsController extends AdminController{
      */
     public function adminGetCars() : void
     {
-        //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
