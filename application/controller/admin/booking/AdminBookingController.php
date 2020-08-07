@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once 'model/admin/users/AdminUsersModel.php';
@@ -21,10 +22,10 @@ class AdminBookingController extends AdminController{
      */
     public function adminGetBooking() : void
     {
-        //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
+        
         $adminFindBooking = $this->adminUsersModel->findBooking();
         require_once 'www/templates/admin/booking/get/AdminGetBookingView.phtml';
     }
@@ -36,12 +37,10 @@ class AdminBookingController extends AdminController{
      */
     public function adminDeleteBooking() : void
     {
-        //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
 
-        // Avec $_GET, on recupère la valeur de l'id qui est dans l'url 
         $this->adminUsersModel->deleteBookingAdmin((int) $_GET['id']);
 
         redirect("index.php?action=admin&action2=booking&action3=get");
@@ -55,7 +54,6 @@ class AdminBookingController extends AdminController{
      */
     public function adminBookingFormUser() : void
     {
-        //si le admin n'est pas connecter au le renvois a l'accueil
         if(!$this->adminSession->isAuthenticatedAdmin()){
             redirect("index.php");
         }
