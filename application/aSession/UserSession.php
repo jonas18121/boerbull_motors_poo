@@ -1,9 +1,8 @@
 <?php
 
-// forcer les erreurs si on a pas bien typé nos class
 declare(strict_types=1);
 
-include_once 'model/panier/PanierModel.php';
+require_once 'model/panier/PanierModel.php';
 
 class UserSession{
 
