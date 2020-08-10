@@ -15,7 +15,6 @@ class HomeModel extends Model{
     */
     public function findHome() : array 
     {
-
         $sql = "SELECT * FROM car INNER JOIN category ON category.id = car.id_category WHERE id_category LIMIT 5";
 
         $home = $this->pdo->query($sql);

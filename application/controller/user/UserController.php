@@ -111,18 +111,15 @@ class UserController{
                         $this->userSession->create((int)$login['id'], $login['first_name'], $login['last_name'], $login['mail']);//on crée la session
 
                         redirect('index.php');//redirection à la page d'accueil
-
-                    }else{
-                        redirect('index.php?action=user&action2=loginForm'); 
                     }
-                }else{
-                    redirect('index.php?action=user&action2=loginForm'); 
+                    throw new PDOException('Le mail n\'est pas bien écrit ');
+                    // redirect('index.php?action=user&action2=loginForm'); 
                 }
-            }else{
-                throw new PDOException('Le mot de passe est incorrect');
+                throw new PDOException('Le mail ou le mot de passe est incorrect');
                 //redirect('index.php?action=user&action2=loginForm'); 
             }
-            redirect('index.php?action=user&action2=loginForm');
+            throw new PDOException('Le mot de passe ou le mail est incorrect');
+            // redirect('index.php?action=user&action2=loginForm');
         }
         redirect('index.php?action=user&action2=loginForm'); 
     }
