@@ -2,14 +2,18 @@
 
 declare(strict_types=1);
 
+require_once 'library/Tools.php';
 require_once 'model/user/UserModel.php';
 require_once 'model/panier/PanierModel.php';
 require_once 'model/car/CarModel.php';
 require_once 'aSession/UserSession.php';
-require_once 'library/Tools.php';
+require_once 'aSession/MessageFlashSession.php';
 
 
 class UserController{
+
+    /** @var MessageFlashSession */
+    private MessageFlashSession $messageFlashSession;
 
     /** @var UserSession */
     private UserSession $userSession;
@@ -29,6 +33,7 @@ class UserController{
         $this->userModel    = new UserModel();
         $this->panierModel  = new PanierModel();
         $this->carModel     = new CarModel();
+        $this->messageFlashSession  = new MessageFlashSession();
     }
 
 
@@ -118,7 +123,8 @@ class UserController{
                 throw new PDOException('Le mail ou le mot de passe est incorrect');
                 //redirect('index.php?action=user&action2=loginForm'); 
             }
-            throw new PDOException('Le mot de passe ou le mail est incorrect');
+            $this->messageFlashSession->setFlash('red', 'Le mot de passe ou le mail est incorrect');
+            //throw new PDOException('Le mot de passe ou le mail est incorrect');
             // redirect('index.php?action=user&action2=loginForm');
         }
         redirect('index.php?action=user&action2=loginForm'); 
