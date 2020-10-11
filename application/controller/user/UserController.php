@@ -223,12 +223,12 @@ class UserController{
                                 $hourFin = substr($_POST['datetimepicker2'],11);
 
                                 //création de la reservation
-                                $this->userModel->addBooking($userId, $dateDebut->format('Y-m-d'), $hourDebut, $dateFin->format('Y-m-d'), $hourFin, $_POST['numberOfSeats'], $car_id);
+                                $this->userModel->addBooking((int) $userId, $dateDebut->format('Y-m-d'), $hourDebut, $dateFin->format('Y-m-d'), $hourFin, (int)$_POST['numberOfSeats'], (int)$car_id);
  
                                 $this->panierModel->deleteAll();
                                 redirect('index.php');
                             }
-                            redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
+                            redirect('index.php?action=user&action2=bookingForm&id=' . $_POST['id'] );
                         }
                         redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
                     }

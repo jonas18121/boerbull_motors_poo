@@ -29,6 +29,6 @@ class MessageFlashSession {
         //     return $_SESSION['flash']['message'];
         // }
 
-        return $_SESSION['flash']['message'];
+        //return $_SESSION['flash']['message'];
     }
 }
