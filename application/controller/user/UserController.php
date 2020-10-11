@@ -2,14 +2,18 @@
 
 declare(strict_types=1);
 
+require_once 'library/Tools.php';
 require_once 'model/user/UserModel.php';
 require_once 'model/panier/PanierModel.php';
 require_once 'model/car/CarModel.php';
 require_once 'aSession/UserSession.php';
-require_once 'library/Tools.php';
+require_once 'aSession/MessageFlashSession.php';
 
 
 class UserController{
+
+    /** @var MessageFlashSession */
+    private MessageFlashSession $messageFlashSession;
 
     /** @var UserSession */
     private UserSession $userSession;
@@ -29,6 +33,7 @@ class UserController{
         $this->userModel    = new UserModel();
         $this->panierModel  = new PanierModel();
         $this->carModel     = new CarModel();
+        $this->messageFlashSession  = new MessageFlashSession();
     }
 
 
@@ -118,7 +123,8 @@ class UserController{
                 throw new PDOException('Le mail ou le mot de passe est incorrect');
                 //redirect('index.php?action=user&action2=loginForm'); 
             }
-            throw new PDOException('Le mot de passe ou le mail est incorrect');
+            $this->messageFlashSession->setFlash('red', 'Le mot de passe ou le mail est incorrect');
+            //throw new PDOException('Le mot de passe ou le mail est incorrect');
             // redirect('index.php?action=user&action2=loginForm');
         }
         redirect('index.php?action=user&action2=loginForm'); 
@@ -217,12 +223,12 @@ class UserController{
                                 $hourFin = substr($_POST['datetimepicker2'],11);
 
                                 //création de la reservation
-                                $this->userModel->addBooking($userId, $dateDebut->format('Y-m-d'), $hourDebut, $dateFin->format('Y-m-d'), $hourFin, $_POST['numberOfSeats'], $car_id);
+                                $this->userModel->addBooking((int) $userId, $dateDebut->format('Y-m-d'), $hourDebut, $dateFin->format('Y-m-d'), $hourFin, (int)$_POST['numberOfSeats'], (int)$car_id);
  
                                 $this->panierModel->deleteAll();
                                 redirect('index.php');
                             }
-                            redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
+                            redirect('index.php?action=user&action2=bookingForm&id=' . $_POST['id'] );
                         }
                         redirect('index.php?action=user&action2=bookingForm&id='.  $_POST['id'] );
                     }
