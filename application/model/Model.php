@@ -5,8 +5,8 @@ abstract class Model{
 
     protected $pdo;
 
-    public function __construct(){
-        //connexion à la bdd
+    public function __construct()
+    {
         $db = new Database;
         $this->pdo = $db->dbConnect(); 
     }
