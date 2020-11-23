@@ -9,24 +9,25 @@ require_once 'Entity/Car.php';
 
 class HomeModel extends Model
 {    
-    /** selectionner toute les voitures et afficher 5 maximum , 1 voiture pour chaque category qui existe
+    /** 
+    * selectionner toute les voitures et afficher 1 voiture pour chaque category qui existe
     * 
-    * @return array $home
+    * @return array $home - retourne un tableau qui contient des objects Car de la classe Car 
     */
     public function findHome() : array 
     {
-        $sql = "SELECT * 
+        $sql = "SELECT car.modele, car.id_category, car.image_url, category.id, category.name
             FROM car 
             INNER JOIN category ON category.id = car.id_category 
             WHERE id_category 
-            LIMIT 5"
+            GROUP BY category.id "
         ;
 
-        $home = $this->pdo->query($sql);
+        $home = $this->pdo->prepare($sql);
         $home->setFetchMode(PDO::FETCH_CLASS, Car::class);
+        $home->execute();
         $home = $home->fetchAll();
-        //pre_var_dump($home, null, true);
-
+        
         return  $home;
     }
 }
