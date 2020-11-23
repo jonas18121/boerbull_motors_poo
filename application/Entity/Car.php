@@ -17,7 +17,7 @@ class Car
     private $nombre_de_voiture;
     private $id_category;
     private $image_url;
-    private $name;
+    // private $name;
 
     public function __construct() {}
     
@@ -325,20 +325,20 @@ class Car
     /**
      * Get the value of name
      */ 
-    public function get_name()
-    {
-        return $this->name;
-    }
+    // public function get_name()
+    // {
+    //     return $this->name;
+    // }
 
     /**
      * Set the value of name
      *
      * @return  self
      */ 
-    public function set_name($name)
-    {
-        $this->name = $name;
+    // public function set_name($name)
+    // {
+    //     $this->name = $name;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }
