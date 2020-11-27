@@ -6,11 +6,11 @@ require_once 'model/car/CarModel.php';
 class CarController{
 
     /** @var CarModel */
-    private CarModel $carModel;
+    private CarModel $car_model;
 
     public function __construct()
     {
-        $this->carModel = new CarModel();
+        $this->car_model = new CarModel();
     }
 
     /** 
@@ -20,7 +20,7 @@ class CarController{
      */
     public function getOneCar() : void
     {
-        $oneCar = $this->carModel->OneCar((int) $_GET['id']);
+        $oneCar = $this->car_model->OneCar((int) $_GET['id']);
         require_once 'www/templates/oneCar/OneCarView.phtml';
     }
 
@@ -31,7 +31,7 @@ class CarController{
      */ 
     public function getOneCategory() : void
     {
-        $categories = $this->carModel->findCategory((int) $_GET['id_category']);
+        $cars_by_category = $this->car_model->findCarByCategory((int) $_GET['id_category']);
         require_once 'www/templates/category/CategoryView.phtml';
     }
 }

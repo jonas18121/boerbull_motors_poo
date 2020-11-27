@@ -12,8 +12,6 @@
     <div class='divNosCar'>  
         <?php foreach($home as $car_category): ?>
 
-            <?php //pre_var_dump($car->get_name(), null, true) ?>
-
             <article class="<?= htmlspecialchars(htmlentities($car_category->{'name'})) ?>">
                 <!-- il va envoyer le paramètre et la valeur category=super pour que CategoryController.class.php puisse le récupérer en $_GET[] -->
                 <a href="index.php?action=category&id_category=<?= htmlspecialchars(htmlentities($car_category->get_id_category())) ?>">
@@ -25,6 +23,7 @@
                     </div>
                 </a>
             </article>
+            
         <?php endforeach; ?>
     </div>
 </section>
