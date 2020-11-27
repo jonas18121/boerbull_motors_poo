@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once 'model/Model.php';
 require_once 'library/Tools.php';
+require_once 'Entity/Car.php';
 
 class CarModel extends Model{
 
@@ -50,22 +51,26 @@ class CarModel extends Model{
 
     /** selectionner des voitures par categorie 
      * 
-     * @param int $category
-     * @return array $categories
+     * @param int $id_category - récupère l'id de la catégorie qui a été selectionner
+     * @return array $cars_by_category - retourne un tableau (de l'object car ) de toute les voitures qui sont dans une catégorie précise 
     */
-    public function findCategory(int $category) : array 
+    public function findCarByCategory(int $id_category) : array 
     {
-        $sql = "SELECT car.id, image_url, modele, marque, name FROM car INNER JOIN category ON category.id = car.id_category WHERE category.id = :id_category";
+        $sql = "SELECT car.id, car.image_url, car.modele, car.marque, category.name 
+            FROM car 
+            INNER JOIN category ON category.id = car.id_category 
+            WHERE category.id = :id_category"
+        ;
 
-        $categories = $this->pdo->prepare($sql);
-        $categories->execute(array('id_category' => $category));
+        $cars_by_category = $this->pdo->prepare($sql);
+        $cars_by_category->execute(array('id_category' => $id_category));
+        $cars_by_category->setFetchMode(PDO::FETCH_CLASS, Car::class);
+        $cars_by_category = $cars_by_category->fetchAll();
 
-        $categories = $categories->fetchAll();
-
-        if(empty($categories)){
+        if(empty($cars_by_category)){
             redirect("index.php");
         }
-        return $categories;
+        return $cars_by_category;
     } 
 
     /** selectionner toutes les voitures 

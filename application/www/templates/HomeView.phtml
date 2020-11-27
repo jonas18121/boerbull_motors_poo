@@ -10,18 +10,20 @@
     <h2>Choisissez une categorie de véhicules</h2>
 
     <div class='divNosCar'>  
-        <?php foreach($home as $value): ?>
-            <article class="<?= htmlspecialchars(htmlentities($value['name'])) ?>">
+        <?php foreach($home as $car_category): ?>
+
+            <article class="<?= htmlspecialchars(htmlentities($car_category->{'name'})) ?>">
                 <!-- il va envoyer le paramètre et la valeur category=super pour que CategoryController.class.php puisse le récupérer en $_GET[] -->
-                <a href="index.php?action=category&id_category=<?= htmlspecialchars(htmlentities($value['id_category'])) ?>">
-                    <h3><?= $value['name'] ?></h3>
-                    <!-- height="250" width="350" -->
+                <a href="index.php?action=category&id_category=<?= htmlspecialchars(htmlentities($car_category->get_id_category())) ?>">
+                    <h3><?= $car_category->{'name'} ?></h3>
                     <div class="zoom">
-                        <img src="www/imgBoerbullMotors/<?= htmlspecialchars(htmlentities($value['image_url'])) ?>" alt="<?= htmlspecialchars(utf8_encode($value['modele'])) ?>"
-                            class='car'>
+                        <img src="www/imgBoerbullMotors/<?= htmlspecialchars(htmlentities($car_category->get_image_url())) ?>" 
+                            alt="<?= htmlspecialchars(utf8_encode($car_category->get_modele())) ?>"
+                        class='car'>
                     </div>
                 </a>
             </article>
+            
         <?php endforeach; ?>
     </div>
 </section>
