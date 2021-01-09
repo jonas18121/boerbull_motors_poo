@@ -61,14 +61,17 @@ class UserController{
                     if(array_key_exists('last_name',$_POST) && isset($_POST['last_name']) && ctype_alpha($_POST['first_name'])){
                         if(strlen($_POST['first_name']) >= 2 && strlen($_POST['first_name']) <= 25){
                             if(array_key_exists('password',$_POST) && isset($_POST['password']) && strlen($_POST['password']) >= 8){
-                                if(array_key_exists('mail',$_POST) && isset($_POST['mail'])){
-                                    if(preg_match("/^[a-zA-Z][a-zA-Z0-9._-]{1,19}@[a-z]{4,7}\.[a-z]{2,3}$/", $_POST['mail'])){
+                                if ($_POST['password'] === $_POST['password_verif']) {
+                                    if(array_key_exists('mail',$_POST) && isset($_POST['mail'])){
+                                        if(preg_match("/^[a-zA-Z][a-zA-Z0-9._-]{1,19}@[a-z]{4,7}\.[a-z]{2,3}$/", $_POST['mail'])){
 
-                                        $this->userModel->registerUser($_POST['first_name'] , $_POST['last_name'], $_POST['mail'], $_POST['password']);
+                                            $this->userModel->registerUser($_POST['first_name'] , $_POST['last_name'], $_POST['mail'], $_POST['password']);
 
-                                        //redirection à la page de connexion pour user 
-                                        redirect('index.php?action=user&action2=loginForm');
-                                    } 
+                                            //redirection à la page de connexion pour user 
+                                            redirect('index.php?action=user&action2=loginForm');
+                                        } 
+                                        redirect('index.php?action=user&action2=registerForm');
+                                    }
                                     redirect('index.php?action=user&action2=registerForm');
                                 }
                                 redirect('index.php?action=user&action2=registerForm');
