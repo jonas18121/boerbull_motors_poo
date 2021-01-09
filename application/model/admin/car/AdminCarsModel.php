@@ -42,7 +42,7 @@ class AdminCarsModel extends AdminModel
      */ 
     public function addCars(
         string $marque, string $modele, int $annee, int $conso, string $color, int $prix_trois_jours, int $puissance, 
-        string $moteur, string $carburant, int $cent, int $nombre_de_place, int $id_category, string $image_url
+        string $moteur, string $carburant, int $cent, int $nombre_de_place, int $id_category, string $image_url = null
     ) : void 
     {
         $sql = "INSERT INTO car(marque, modele, annee, conso, color, prix_trois_jours, puissance, moteur, carburant, cent, nombre_de_place, id_category, image_url) 
