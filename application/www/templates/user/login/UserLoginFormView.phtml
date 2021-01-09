@@ -18,8 +18,10 @@
         }
     ?>
 
+
     <div class="divForm">
-        <form action="index.php?action=user&action2=login" method="post" id="form" name="formulaire" >
+        <div id="error"><span></span></div>
+        <form action="index.php?action=user&action2=login" method="post" id="form_user" name="formulaire" >
             <div>
                 <input type='text' name='mail' id='mail' placeholder="Email" class="myInput" required>
                     <span id="msgMail"></span>
