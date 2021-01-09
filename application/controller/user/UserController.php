@@ -7,7 +7,7 @@ require_once 'model/user/UserModel.php';
 require_once 'model/panier/PanierModel.php';
 require_once 'model/car/CarModel.php';
 require_once 'aSession/UserSession.php';
-require_once 'aSession/MessageFlashSession.php';
+//require_once 'aSession/MessageFlashSession.php';
 
 
 class UserController{
@@ -33,7 +33,7 @@ class UserController{
         $this->userModel    = new UserModel();
         $this->panierModel  = new PanierModel();
         $this->carModel     = new CarModel();
-        $this->messageFlashSession  = new MessageFlashSession();
+        //$this->messageFlashSession  = new MessageFlashSession();
     }
 
 
