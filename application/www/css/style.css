@@ -262,6 +262,23 @@ input[type=submit]:hover{
     border: 0.1rem solid #f6dc12;
 }
 
+/* ********* Color Message error jq validation ****************** */
+
+label.error{
+    color: red;
+}
+
+div#error{
+    background-color: red;
+    text-align: center;
+}
+
+div#error span{
+    color: white;
+    font-size: 20px;
+}
+
+
 /* /////////// F O O T E R ////////////// */
 
 footer{
