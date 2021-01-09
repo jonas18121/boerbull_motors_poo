@@ -24,10 +24,14 @@
     <div class="divScroll divForm">
         <!-- onsubmit permet d'afficher un message à l'ulisateur après avoir appuyer sur le boutton submit,
             quand tous les champs sont remplis  -->
-        <form action="index.php?action=user&action2=booking" method="post" onsubmit="bokingConfirme()">
+            <!-- onsubmit="bokingConfirme()" -->
+        <form action="index.php?action=user&action2=booking" method="post" id="form_reservation">
             <!-- <fieldset> -->
                 <!-- <legend>Location de voitures</legend> -->
                 <h4>Location de voitures</h4>
+
+                <div id="error"><span></span></div>
+
                 <div>
                     <!-- récupère le user_id  -->
                     <input type="hidden" name="user_i" value="<?= htmlspecialchars(htmlentities($_SESSION['user']['id'])) ?>">
@@ -46,13 +50,13 @@
 
                 <div>
                     <label for="datetimepicker">Date de début</label>
-                    <input type="text" name="datetimepicker" id="datetimepicker" placeholder="20.12.2020 09:00" required>
+                    <input type="text" name="datetimepicker" id="datetimepicker" placeholder="20/12/2019 09:00" required>
                 </div>
 
                 <div>
                     <small>Indiquez la date de fin , qui aura lieu 3 jours après la date de début</small><br>
                     <label for="datetimepicker2">Date de fin</label>
-                    <input type="text" name="datetimepicker2" id="datetimepicker2" placeholder="30.12.2020 14:00" required>
+                    <input type="text" name="datetimepicker2" id="datetimepicker2" placeholder="23/12/2019 09:00" required>
                 </div>
 
                 <div>
@@ -80,7 +84,7 @@
         </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js" charset="utf-8"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js" charset="utf-8"></script> -->
 
     <script>
         
@@ -96,6 +100,9 @@
                 type: 'datetime',
                 firstDayOfWeek: 0,
                 monthFirst: false,
+                mask: false, // affiche un masque au champ de l'input exemple : _/_/____ __:__
+
+                theme:'white', // couleur du calendrier, il y a aussi 'dark'
 
                 //Toutes les langues supportées ici
                 i18n:{
@@ -117,13 +124,23 @@
                     '09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'
                 ],
                 //format de la date et les heures
-                format: 'd.m.Y H:i',
+                format: 'd/m/Y H:i',
 
                 /*date minimun pour reserver une voiture , qui est la date d'aujourd'hui avec today, mais la date de reservation devra être pris 2 heures après l'heure qu'ils on cliquer sur reserver aujourd'hui(uniquement, si le RDV est pour aujourd'hui) grace au 2 de today.getHours() + 2*/
                 minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() + 2, today.getMinutes()),
 
-                /* date maximal pour reserver une voiture, on a jusqu'a 15 jours (pas plus) à partir d'aujourd'hui. grace au 15 de today.getDate() + 15 */
-			    maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 15, today.getHours())
+                /* date maximal pour reserver une voiture, 
+                    on a jusqu'a 60 jours (pas plus) à partir d'aujourd'hui. 
+                    grace au 60 de today.getDate() + 60
+                 */
+                maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 60, today.getHours()),
+                
+                onShow: function( ct ){
+                    this.setOptions({
+
+                    })
+                    console.log($('#datetimepicker2').val() ? $('#datetimepicker2').val() : false);
+                }, 
             });
         });
 
@@ -141,6 +158,10 @@
                 type: 'datetime',
                 firstDayOfWeek: 0,
                 monthFirst: false,
+
+                mask: false, // affiche un masque au champ de l'input exemple : _/_/____ __:__
+
+                theme:'white', // couleur du calendrier, il y a aussi 'dark'
 
                 //Toutes les langues supportées ici
                 i18n:{
@@ -162,13 +183,23 @@
                     '09:00', '10:00', '11:00', '14:00', '15:00', '16:00', '17:00'
                 ],
                 //format de la date et les heures
-                format: 'd.m.Y H:i',
+                format: 'd/m/Y H:i',
 
                 /*date minimun pour reserver une voiture , qui est la date d'aujourd'hui avec today, mais la date de reservation devra être pris 2 heures après l'heure qu'ils on cliquer sur reserver aujourd'hui(uniquement, si le RDV est pour aujourd'hui) grace au 2 de today.getHours() + 2*/
-                minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() + 2, today.getMinutes()),
+                // minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() + 2, today.getMinutes()),
 
                 /* date maximal pour reserver une voiture, on a jusqu'a 15 jours (pas plus) à partir d'aujourd'hui. grace au 15 de today.getDate() + 15 */
-                maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 15, today.getHours())
+                // maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 15, today.getHours())
+
+                onShow: function( ct ){
+                    picker =  $('#datetimepicker').val();
+                    this.setOptions({
+                        minDate: $('#datetimepicker').val() !== '' ? $('#datetimepicker').val() : new Date(today.getFullYear(), today.getMonth(), today.getDate() + 3, today.getHours() + 2, today.getMinutes()),
+                    })
+                    // console.log($('#datetimepicker').val() !== '' ? new Date(" '" + picker + " ' ") : new Date(today.getFullYear(), today.getMonth(), today.getDate(), today.getHours() + 2, today.getMinutes()));
+                },
+
+                maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 60, today.getHours()),
             });
         });
     </script>

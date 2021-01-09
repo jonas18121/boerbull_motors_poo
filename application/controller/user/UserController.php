@@ -210,17 +210,27 @@ class UserController{
                                 $userId = $_POST['user_i'];// récupération du client
                                 $car_id = $_POST['id'];//récupération id de ou des voitures selectionner
 
+
+
                                 //Récupéré la date de debut jusqu'a 10 caractères, EX : 2019-06-21
-                                $dateDebut = new DateTime(date(substr($_POST['datetimepicker'], 0, 10)));
+                                // $dateDebut = new DateTime(date(substr($_POST['datetimepicker'], 0, 10)));
+                                $dateDebut = DateTime::createFromFormat('d/m/Y', date(substr($_POST['datetimepicker'], 0, 10)));
 
                                 //récupéré les heures qui s'ajouteront après la date et s'affichera au 11èmes caractères 
                                 $hourDebut = substr($_POST['datetimepicker'],11);
 
+
+
+
                                 //Récupéré la date de fin jusqu'a 10 caractères, EX : 2019-06-21
-                                $dateFin = new DateTime(date(substr($_POST['datetimepicker2'], 0, 10)));
+                                // $dateFin = new DateTime(date(substr($_POST['datetimepicker2'], 0, 10)));
+                                $dateFin = DateTime::createFromFormat('d/m/Y', date(substr($_POST['datetimepicker2'], 0, 10)));
 
                                 //récupéré les heures qui s'ajouteront après la date et s'affichera au 11èmes caractères 
                                 $hourFin = substr($_POST['datetimepicker2'],11);
+
+
+
 
                                 //création de la reservation
                                 $this->userModel->addBooking((int) $userId, $dateDebut->format('Y-m-d'), $hourDebut, $dateFin->format('Y-m-d'), $hourFin, (int)$_POST['numberOfSeats'], (int)$car_id);
