@@ -7,6 +7,7 @@
 
 let mail            = document.getElementById('mail');
 let password        = document.getElementById("password");
+let password_verif  = document.getElementById("password_verif");
 let firstName       = document.getElementById('firstName');
 let lastName        = document.getElementById('lastName');
 
@@ -98,6 +99,31 @@ function verifPass(e){
     
 }
 
+//verification de la longueur du mot de passe de comfirmation saisie
+function verifPassVerif(e){
+
+    let pass = e.target.value;// valeur saisie dans le champ
+
+    //couleur et texte par défaut
+    let longueur = "faible , il faut minimun 8 caractères pour être valide";
+    let color = "red";
+    
+    //si la longueur du mot de passe est plus grand ou égale à 8
+    if(pass.length >= 8){
+        longueur = "la longueur est suffisante";
+        color = "green";
+    }
+    //si la longueur du mot de passe est plus grand ou égale à 4
+    else if(pass.length >= 4){
+        longueur = "moyen , il faut minimun 8 caractères pour être valide";
+        color = "orange";
+    }
+        
+    msgPassVerif.textContent = longueur;//la longueur du texte varira selon la longueur du mot de passe
+    msgPassVerif.style.color = color;//la couleur du texte varira selon la longueur du mot de passe
+    
+}
+
 
 
 
@@ -113,19 +139,19 @@ function verifName(e){
     let color = "";
     
     //si la longueur du nom sont plus grand ou égale à 2 et plus petit ou égale a 25
-    if(name.length >= 2 && name.length <= 25){
+    if(name.length >= 2 && name.length <= 40){
         longueur = "bon";
         color = "green";
     }
     //si la longueur du nom sont plus petit que 2 
     else if(name.length < 2){
-        longueur = "trop petit , il faut minimum 2 caractères";
+        longueur = "trop petit !!!";
         color = "red";
        
     }
     //si la longueur du nom sont plus grand que 25 
-    else if(name.length > 25){
-        longueur = "trop grand, il faut maximum 25 caractères";
+    else if(name.length > 40){
+        longueur = "trop grand, !!!";
         color = "red";
     }
 
@@ -150,18 +176,18 @@ function verifFirstName(e){
     let color = "";
     
     //si la longueur du prenom sont plus grand ou égale à 2 et plus petit ou égale a 25
-    if(fristName.length >= 2 && fristName.length <= 25){
+    if(fristName.length >= 2 && fristName.length <= 40){
         longueur = "bon";
         color = "green";
     }
     //si la longueur du prenom sont plus petit que 2 
     else if(fristName.length < 2){
-        longueur = "trop petit , il faut minimum 2 caractères";
+        longueur = "trop petit !!!";
         color = "red";
     }
     //si la longueur du prenom sont plus grand que 25 
-    else if(fristName.length > 25){
-        longueur = "trop grand, il faut maximum 25 caractères";
+    else if(fristName.length > 40){
+        longueur = "trop grand, !!!";
         color = "red";
     }
 
@@ -181,12 +207,23 @@ function mailControle(e){
     let regex = /^[a-zA-Z][a-zA-Z0-9._/-]{1,19}@[a-z]{4,7}\.[a-z]{2,3}$/;
     let valide = "";
 
-    if(!regex.test(e.target.value)){
+    // if(!regex.test(e.target.value)){
+    //     valide = "adresse invalide";
+    // }
+
+    if(regex.test(e.target.value)){
+
+        valide = "adresse valide";
+        msgMail.style.color = "green";//le texte sera de couleur vert
+    }
+    else if(!regex.test(e.target.value)){
         valide = "adresse invalide";
+        msgMail.style.color = "red";//le texte sera de couleur rouge
     }
     
+    
     msgMail.textContent = valide;// on ecrit le texte contenue qui est dans valide, dans le span si le mail est invalide
-    msgMail.style.color = "red";//le texte sera de couleur rouge
+    // msgMail.style.color = "red";//le texte sera de couleur rouge
 }
 
 
@@ -197,8 +234,9 @@ function mailControle(e){
 //DOMContentLoaded attent que la partie HTML soit complètement chargé et analysé pour commencer à fonctionner
 document.addEventListener('DOMContentLoaded', function(){
     
-    mail.addEventListener("blur", mailControle);//controle du mail en fin de saisie
+    mail.addEventListener("input", mailControle);//controle du mail en fin de saisie
     password.addEventListener("input", verifPass);//verification de la longueur du mot de passe saisie
+    password_verif.addEventListener("input", verifPassVerif);
         //submit.addEventListener("click", confirmer);// popup pour connexion
     lastName.addEventListener("input", verifName);//controle du nom en fin de saisie
         //submitBooking.addEventListener("click", bokingConfirme);// popup pour connexion
