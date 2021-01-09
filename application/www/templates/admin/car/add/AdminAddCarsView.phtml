@@ -9,7 +9,7 @@
 
         <div id="error"><span></span></div>
 
-        <form action="index.php?action=admin&action2=car&action3=add" method="post" id="form_car" name="formulaire">
+        <form action="index.php?action=admin&action2=car&action3=add" method="post" id="form_car" name="formulaire" enctype="multipart/form-data">
 
             <div>
                 <label for="marque">Marque : </label>
@@ -68,7 +68,7 @@
 
             <div>
                 <label for="image_url">Adresse de l'image : </label>
-                <input type="text" name="image_url" required>
+                <input type="file" name="image_url" required>
             </div>
 
             <div>

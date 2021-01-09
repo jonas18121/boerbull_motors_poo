@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once 'model/admin/car/AdminCarsModel.php';
+require_once 'library/Tools.php';
 
 class AdminCarsController extends AdminController{
 
@@ -62,7 +63,7 @@ class AdminCarsController extends AdminController{
         }
 
         if(!empty($_POST)){ 
-            if(array_key_exists('marque',$_POST) && isset($_POST['marque']) && strlen($_POST['marque']) >= 2 && strlen($_POST['marque']) <= 25){ 
+            if(array_key_exists('marque',$_POST) && isset($_POST['marque']) && strlen($_POST['marque']) >= 2 && strlen($_POST['marque']) <= 25){ //pre_var_dump(' AdminCarsController.php', $_FILES , true);
 
                 if(array_key_exists('modele',$_POST) && isset($_POST['modele']) && strlen($_POST['modele']) >= 2 && strlen($_POST['modele']) <= 35){
 
@@ -86,9 +87,19 @@ class AdminCarsController extends AdminController{
 
                                                         if(array_key_exists('id_category',$_POST) && isset($_POST['id_category']) && ctype_digit($_POST['id_category']) && strlen($_POST['id_category']) === 1){
 
-                                                            if(array_key_exists('image_url',$_POST) && isset($_POST['image_url'])){
+                                                            if(array_key_exists('image_url',$_FILES) && isset($_FILES['image_url'])){
+
+                                                                // Upload and Rename File
+                                                                $filename = $_FILES["image_url"]["name"];
+
+                                                                $good_img = upload_file($filename);
+                                                                // pre_var_dump('l 99 AdminCarsController.php', $good_img , true);
+                                                                if (empty($good_img)) {
+                                                                    redirect("index.php?action=admin&action2=car&action3=addForm");
+                                                                }
                                                                 
-                                                                $this->adminCarsModel->addCars($_POST['marque'], $_POST['modele'], (int) $_POST['annee'], (int) $_POST['conso'], $_POST['color'], (int) $_POST['prix_trois_jours'], (int) $_POST['puissance'], $_POST['moteur'], $_POST['carburant'], (int) $_POST['cent'], (int) $_POST['nombre_de_place'], (int) $_POST['id_category'], $_POST['image_url']);
+
+                                                                $this->adminCarsModel->addCars($_POST['marque'], $_POST['modele'], (int) $_POST['annee'], (int) $_POST['conso'], $_POST['color'], (int) $_POST['prix_trois_jours'], (int) $_POST['puissance'], $_POST['moteur'], $_POST['carburant'], (int) $_POST['cent'], (int) $_POST['nombre_de_place'], (int) $_POST['id_category'], (string) $good_img);
 
                                                                 redirect("index.php?action=admin&action2=car&action3=get");//on redirectionne l'admin vers la liste des users
                                                             }
