@@ -62,10 +62,10 @@ class CarModel extends Model{
             WHERE category.id = :id_category"
         ;
 
-        $cars_by_category = $this->pdo->prepare($sql);
-        $cars_by_category->execute(array('id_category' => $id_category));
-        $cars_by_category->setFetchMode(PDO::FETCH_CLASS, Car::class);
-        $cars_by_category = $cars_by_category->fetchAll();
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array('id_category' => $id_category));
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Car::class);
+        $cars_by_category = $stmt->fetchAll();
 
         if(empty($cars_by_category)){
             redirect("index.php");
