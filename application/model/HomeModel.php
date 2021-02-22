@@ -23,10 +23,10 @@ class HomeModel extends Model
             GROUP BY category.id "
         ;
 
-        $home = $this->pdo->prepare($sql);
-        $home->setFetchMode(PDO::FETCH_CLASS, Car::class);
-        $home->execute();
-        $home = $home->fetchAll();
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Car::class);
+        $stmt->execute();
+        $home = $stmt->fetchAll();
         
         return  $home;
     }
