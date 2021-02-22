@@ -1,48 +1,46 @@
 <?php $title = 'Une voiture'; ?>
 <?php $userSession = new UserSession(); ?>
 <?php $adminSession = new AdminSession(); ?>
+
 <!-- demarre une tamporisation de sortie -->
 <?php ob_start(); ?>
 
 <section class='sectionUniversel'>
 
-    <?php foreach($oneCar as $value): ?>
+    <h2><?= htmlspecialchars(htmlentities($oneCar->get_marque())) . ' ' . htmlspecialchars(utf8_encode($oneCar->get_modele())) ?></h2>
 
-        <h2><?= htmlspecialchars(htmlentities($value['marque'])) . ' ' . htmlspecialchars(utf8_encode($value['modele'])) ?></h2>
+    <div class='myImgCar zoom'>
+        <img src="www/imgBoerbullMotors/<?= $oneCar->get_image_url() ?>"  alt="<?= htmlspecialchars(utf8_encode($oneCar->get_modele())) ?>" class="myImgOneCar"> 
+    </div><!--  
+    
+--><div class='myStatCar'>
+        <ul>
+            <li><strong>Marque : </strong><?= htmlspecialchars(htmlentities($oneCar->get_marque())) ?></li>
+            <li><strong>Modèle : </strong><?= htmlspecialchars(utf8_encode($oneCar->get_modele())) ?></li>
+            <li><strong>Année : </strong><?= htmlspecialchars(htmlentities($oneCar->get_annee())) ?></li>
+            <li><strong>Conso : </strong><?= htmlspecialchars(htmlentities($oneCar->get_conso())) ?> L/100 km</li>
+            <li><strong>Couleur : </strong><?= htmlspecialchars(htmlentities($oneCar->get_color())) ?></li>
+            <li><strong>Puissance : </strong><?= htmlspecialchars(htmlentities($oneCar->get_puissance())) ?> ch</li>
+            <li><strong>Moteur : </strong><?= htmlspecialchars(htmlentities($oneCar->get_moteur())) ?> cylindre</li>
+            <li><strong>Carburant : </strong><?= htmlspecialchars(htmlentities($oneCar->get_carburant())) ?></li>
+            <li><strong>0-100 KM : </strong><?= htmlspecialchars(htmlentities($oneCar->get_cent())) ?> secondes</li>
+            <li><strong>Nombre de place : </strong><?= htmlspecialchars(htmlentities($oneCar->get_nombre_de_place())) ?></li>
+            <li><strong>Prix pour 3 jours : </strong><?= htmlspecialchars(htmlentities($oneCar->get_prix_trois_jours())) ?> € hors taxe</li>
+        </ul>
 
-        <div class='myImgCar zoom'>
-            <img src="www/imgBoerbullMotors/<?= $value['image_url'] ?>"  alt="<?= htmlspecialchars(utf8_encode($value['modele'])) ?>" class="myImgOneCar"> 
-        </div><!--  
+
         
-    --><div class='myStatCar'>
-            <ul>
-                <li><strong>Marque : </strong><?= htmlspecialchars(htmlentities($value['marque'])) ?></li>
-                <li><strong>Modèle : </strong><?= htmlspecialchars(utf8_encode($value['modele'])) ?></li>
-                <li><strong>Année : </strong><?= htmlspecialchars(htmlentities($value['annee'])) ?></li>
-                <li><strong>Conso : </strong><?= htmlspecialchars(htmlentities($value['conso'])) ?> L/100 km</li>
-                <li><strong>Couleur : </strong><?= htmlspecialchars(htmlentities($value['color'])) ?></li>
-                <li><strong>Puissance : </strong><?= htmlspecialchars(htmlentities($value['puissance'])) ?> ch</li>
-                <li><strong>Moteur : </strong><?= htmlspecialchars(htmlentities($value['moteur'])) ?> cylindre</li>
-                <li><strong>Carburant : </strong><?= htmlspecialchars(htmlentities($value['carburant'])) ?></li>
-                <li><strong>0-100 KM : </strong><?= htmlspecialchars(htmlentities($value['cent'])) ?> secondes</li>
-                <li><strong>Nombre de place : </strong><?= htmlspecialchars(htmlentities($value['nombre_de_place'])) ?></li>
-                <li><strong>Prix pour 3 jours : </strong><?= htmlspecialchars(htmlentities($value['prix_trois_jours'])) ?> € hors taxe</li>
-            </ul>
- 
-
-           
-            <?php if (!$adminSession->isAuthenticatedAdmin()) : ?>
-                <!-- si on est pas connecter le , Ajouter au panier , nous emmènera vers la page login  -->
-                <?php if (!$userSession->isAuthenticatedUser()) : ?>
-                    <button><a href="index.php?action=user&action2=loginForm" onclick="return seConnecter()">Ajouer au panier</a></button>
-                <?php else : ?>    
-                    <button><a href="index.php?action=panier&id=<?= htmlspecialchars(htmlentities($value['id'])) ?>">Ajouter au panier</a></button>
-                <?php endif; ?>
-            <?php else : ?> 
-
+        <?php if (!$adminSession->isAuthenticatedAdmin()) : ?>
+            <!-- si on est pas connecter le , Ajouter au panier , nous emmènera vers la page login  -->
+            <?php if (!$userSession->isAuthenticatedUser()) : ?>
+                <button><a href="index.php?action=user&action2=loginForm" onclick="return seConnecter()">Ajouer au panier</a></button>
+            <?php else : ?>    
+                <button><a href="index.php?action=panier&id=<?= htmlspecialchars(htmlentities($oneCar->get_id())) ?>">Ajouter au panier</a></button>
             <?php endif; ?>
-        </div>
-    <?php endforeach ; ?>
+        <?php else : ?> 
+
+        <?php endif; ?>
+    </div>
 </section>
 <!-- fermer la tamporisation de sortie et le mettre dans une variable -->
 <?php $content = ob_get_clean(); ?>
