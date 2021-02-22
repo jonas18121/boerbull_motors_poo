@@ -11,16 +11,16 @@ class CarModel extends Model{
     /** selectionne une voiture 
      * 
      * @param int $one
-     * @return array $oneCar
+     * @return Car $oneCar
     */
-    public function OneCar(int $one) : array
+    public function OneCar(int $one) : Car
     {
         $sql = "SELECT * FROM car WHERE id = :id";
 
-        $oneCar = $this->pdo->prepare($sql);
-        $oneCar->execute(array('id' => $one));
-
-        $oneCar = $oneCar->fetchAll();
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array('id' => $one));
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Car::class);
+        $oneCar = $stmt->fetch();
     
         if(empty($oneCar)){
             redirect("index.php");
