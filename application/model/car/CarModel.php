@@ -37,10 +37,10 @@ class CarModel extends Model{
     {
         $sql = 'SELECT * FROM car WHERE id IN ('.implode(',',$session).')';
 
-        $oneCar = $this->pdo->prepare($sql);
-        $oneCar->execute(array('id' => implode(',' , $session)));
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array('id' => implode(',' , $session)));
 
-        $oneCar = $oneCar->fetchAll();
+        $oneCar = $stmt->fetchAll();
 
         if(empty($oneCar)){
             redirect("index.php");
